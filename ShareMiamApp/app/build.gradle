@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 
+
 android {
     compileSdkVersion 25
     buildToolsVersion "26.0.2"
@@ -20,11 +21,21 @@ android {
 }
 
 dependencies {
+    implementation 'com.android.support:design:25.4.0'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    // Dependency for Google Sign-In
+    compile 'com.google.android.gms:play-services-auth:9.0.0'
+
+    // Dependencies for the REST API example
+    //compile 'com.google.api-client:google-api-client:1.22.0'
+    //compile 'com.google.api-client:google-api-client-android:1.22.0'
+    //compile 'com.google.apis:google-api-services-people:v1-rev139-1.22.0'
     testCompile 'junit:junit:4.12'
 }
+apply plugin: 'com.google.gms.google-services'

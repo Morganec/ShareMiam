@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "17085668106",
+    "project_id": "default-demo-app-db73a"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:17085668106:android:27d689d63f1b7a06",
+        "android_client_info": {
+          "package_name": "com.example.morgane.sharemiamapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "319025904952-ltbjhbpuucv83pqhp1jso3qcpi0cdi28.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.morgane.sharemiamapp",
+            "certificate_hash": "98d90e6b34947a89955acebdc17cbf863a0c2683"
+          }
+        },
+        {
+          "client_id": "319025904952-ltbjhbpuucv83pqhp1jso3qcpi0cdi28.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiG8ASeCOxWHLcwH1AyZizLlPWXWrEEUw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

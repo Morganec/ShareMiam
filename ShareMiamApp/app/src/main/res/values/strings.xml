@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ShareMiamApp</string>
+    <string name="server_client_id"> 319025904952-ltbjhbpuucv83pqhp1jso3qcpi0cdi28.apps.googleusercontent.com</string>
+    <string name="title_activity_loggin">LogginActivity</string>
 </resources>
