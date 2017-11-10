@@ -6,26 +6,53 @@
     android:layout_height="match_parent"
     android:background="@drawable/bois"
     tools:context="com.example.morgane.sharemiamapp.MainActivity">
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitEnd"
+        app:srcCompat="@drawable/logo" />
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ScrollView01"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+
 
     <Button
         android:id="@+id/btnSeeMap"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Voir la carte"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="#f48641"/>
+
+        <Space
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            />
 
     <Button
         android:id="@+id/btnAddItem"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Ajouter un item"
-        app:layout_constraintBottom_toTopOf="@+id/btnSeeMap"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="#f48641"
+        />
+
+
+
+
+    </LinearLayout>
+
+
+    </ScrollView>
+
+
 </android.support.constraint.ConstraintLayout>
