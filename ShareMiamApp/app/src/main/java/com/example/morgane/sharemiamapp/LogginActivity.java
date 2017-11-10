@@ -26,7 +26,7 @@ public class LogginActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
 
-    private static final String TAG = "SignInActivity";
+    private static final String TAG = "LogginActivity";
     private static final int RC_SIGN_IN = 9001;
 
     private GoogleApiClient mGoogleApiClient;
