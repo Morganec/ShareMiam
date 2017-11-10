@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+ android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.morgane.sharemiamapp.AddItemActivity">-->
+
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ScrollView01"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtDescrForm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Veuillez remplir ce formulaire afin d'ajouter un nouveau plat"
+                android:textSize="10pt"
+                />
+
+            <EditText
+                android:id="@+id/edtTitleItem"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="Titre du plat"
+                android:hint="@string/app_name"
+                />
+
+
+            <EditText
+                android:id="@+id/edtDescrItem"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:text="Description du plat"
+                android:lines="5"
+                android:layout_width="fill_parent">
+            </EditText>
+
+            <Button
+                android:id="@+id/btnTakePicture"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Prendre une photo"
+                android:textStyle="normal"></Button>
+
+            <CheckBox
+                android:id="@+id/CheckBoxResponse"
+                android:layout_height="wrap_content"
+                android:text="Je confirme avoir respecté les normes d'hygiènes et avoir lu les conditions d'utilisations"
+                android:layout_width="fill_parent">
+            </CheckBox>
+
+
+
+            <Button
+                android:id="@+id/btnAddItem"
+                android:layout_height="wrap_content"
+                android:text="Ajouter"
+                android:layout_width="fill_parent">
+            </Button>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+
+
+</android.support.constraint.ConstraintLayout>

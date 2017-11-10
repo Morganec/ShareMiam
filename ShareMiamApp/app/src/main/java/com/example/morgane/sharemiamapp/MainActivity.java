@@ -12,12 +12,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final Button loginButton = (Button) findViewById(R.id.seeMapBtn);
-        loginButton.setOnClickListener(new View.OnClickListener() {
+
+
+        final Button btnSeeMap = (Button) findViewById(R.id.btnSeeMap);
+        btnSeeMap.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        final Button btnAddItem = (Button) findViewById(R.id.btnAddItem);
+        btnAddItem.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AddItemActivity.class);
                 startActivity(intent);
             }
         });

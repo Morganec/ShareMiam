@@ -8,11 +8,22 @@
     tools:context="com.example.morgane.sharemiamapp.MainActivity">
 
     <Button
-        android:id="@+id/seeMapBtn"
+        android:id="@+id/btnSeeMap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Voir la carte"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnAddItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ajouter un item"
+        app:layout_constraintBottom_toTopOf="@+id/btnSeeMap"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
