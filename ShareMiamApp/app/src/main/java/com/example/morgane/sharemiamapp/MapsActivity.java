@@ -47,13 +47,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
 
-    /*    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            mMap.setMyLocationEnabled(true);
-        }else{
-            System.out.println("permission location denied");
-        }
-*/
+
+
 
         int permissionCheck = ContextCompat.checkSelfPermission(MapsActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION);
@@ -65,5 +60,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }else{
             mMap.setMyLocationEnabled(true);
         }
-        }
+
+
+    }
 }
