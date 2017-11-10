@@ -31,8 +31,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:text="Titre du plat"
-                android:hint="@string/app_name"
+                android:hint="Titre du plat"
                 />
 
 
@@ -40,10 +39,13 @@
                 android:id="@+id/edtDescrItem"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
-                android:text="Description du plat"
+                android:hint="Description du plat"
                 android:lines="5"
                 android:layout_width="fill_parent">
             </EditText>
+
+
+
 
             <Button
                 android:id="@+id/btnTakePicture"
@@ -51,6 +53,32 @@
                 android:layout_height="wrap_content"
                 android:text="Prendre une photo"
                 android:textStyle="normal"></Button>
+
+
+            <TextView
+                android:id="@+id/txtDescrAdress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lieu de récupération du plat : "
+                android:textSize="10pt"
+                />
+
+            <EditText
+                android:id="@+id/edtCodePostal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="Code postal"
+                />
+
+            <EditText
+                android:id="@+id/edtRue"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="Nom et numéro de la rue"
+                />
+
 
             <CheckBox
                 android:id="@+id/CheckBoxResponse"
