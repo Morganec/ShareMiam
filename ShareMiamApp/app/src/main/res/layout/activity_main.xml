@@ -46,6 +46,19 @@
         android:background="#f48641"
         />
 
+        <Space
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            />
+
+        <Button
+            android:id="@+id/btnProfile"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Voir profil"
+            android:background="#f48641"
+            />
+
 
 
 
