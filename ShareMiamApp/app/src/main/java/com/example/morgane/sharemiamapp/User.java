@@ -10,10 +10,10 @@ public class User {
     public String email;
     public String uid;
 
-    public User(String uid, String email){
-        this.Username="Pas encore choisi";
+    public User(String uid, String email,String phone, String pseudo){
+        this.Username=pseudo;
         this.email=email;
-        this.Phonenumber="pas encore choisi";
+        this.Phonenumber=phone;
         this.uid=uid;
     }
 
