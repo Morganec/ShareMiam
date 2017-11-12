@@ -8,11 +8,13 @@ public class User {
     public String Username;
     public String Phonenumber;
     public String email;
+    public String uid;
 
-    public User(String email){
+    public User(String uid, String email){
         this.Username="Pas encore choisi";
         this.email=email;
         this.Phonenumber="pas encore choisi";
+        this.uid=uid;
     }
 
 }

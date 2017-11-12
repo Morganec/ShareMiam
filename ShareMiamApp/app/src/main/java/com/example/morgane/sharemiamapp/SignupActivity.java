@@ -93,14 +93,22 @@ public class SignupActivity extends AppCompatActivity {
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(SignupActivity.this, "Authentication failed." + task.getException(),
                                             Toast.LENGTH_SHORT).show();
+
                                 } else {
+                                    FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
+                                    DatabaseReference mDatabaseReference = mFirebaseDatabase.getReference("Users");
+                                    User s = new User(auth.getCurrentUser().getUid(), auth.getCurrentUser().getEmail());
+                                    String id= mDatabaseReference.push().getKey();
+                                    mDatabaseReference.child(id).setValue(s);
                                     startActivity(new Intent(SignupActivity.this, MainActivity.class));
+
                                     finish();
                                 }
                             }
                         });
 
-                
+
+
 
             }
         });
