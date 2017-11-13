@@ -19,10 +19,10 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/txtDescrForm"
+                android:id="@+id/txtDescriptionForm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Veuillez remplir ce formulaire afin d'ajouter un nouveau plat"
+                android:text="@string/FormAddItemExplanation"
                 android:textSize="10pt"
                 />
 
@@ -31,15 +31,30 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:hint="Titre du plat"
+                android:hint="@string/foodTitle"
                 />
+
+            <TextView
+                android:id="@+id/txtValidyDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/validityDate"
+                android:textSize="10pt"
+                />
+
+            <EditText
+                android:id="@+id/edtValidityDate"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date" />
+
 
 
             <EditText
-                android:id="@+id/edtDescrItem"
+                android:id="@+id/edtDescriptionItem"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
-                android:hint="Description du plat"
+                android:hint="@string/descriptionFood"
                 android:lines="5"
                 android:layout_width="fill_parent">
             </EditText>
@@ -51,15 +66,15 @@
                 android:id="@+id/btnTakePicture"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Prendre une photo"
+                android:text="@string/takePicture"
                 android:textStyle="normal"></Button>
 
 
             <TextView
-                android:id="@+id/twDescrAdress"
+                android:id="@+id/tvDescriptionAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lieu de récupération du plat : "
+                android:text="@string/FoodLocalisation"
                 android:textSize="10pt"
                 />
 
@@ -68,7 +83,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:hint="Code postal"
+                android:hint="@string/PostalCode"
                 />
 
             <EditText
@@ -76,14 +91,14 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:hint="Nom et numéro de la rue"
+                android:hint="@string/adress"
                 />
 
 
             <CheckBox
-                android:id="@+id/CheckBoxResponse"
+                android:id="@+id/chbxConfirm"
                 android:layout_height="wrap_content"
-                android:text="Je confirme avoir respecté les normes d'hygiènes et avoir lu les conditions d'utilisations"
+                android:text="@string/ckb_confirm"
                 android:layout_width="fill_parent">
             </CheckBox>
 
@@ -98,6 +113,8 @@
 
 
         </LinearLayout>
+
+
     </ScrollView>
 
 

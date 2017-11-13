@@ -41,6 +41,15 @@
     <string name="btn_sign_out">Sign Out</string>
     <string name="lbl_forgot_password">Forgot password?</string>
     <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
+    <string name="descriptionFood">Description du plat ( pensez à indiquer les allergènes)</string>
+    <string name="validityDate">Date de validité du plat</string>
+    <string name="foodTitle">Titre du plat</string>
+    <string name="FormAddItemExplanation">Veuillez remplir ce formulaire afin d\'ajouter un nouveau plat</string>
+    <string name="takePicture">Prendre une photo du plat</string>
+    <string name="FoodLocalisation">Lieu de récupération du plat :</string>
+    <string name="PostalCode">Code postal</string>
+    <string name="adress">Nom et numéro de la rue</string>
+    <string name="ckb_confirm">Je confirme avoir respecté les normes d\'hygiènes et avoir lu les conditions d\'utilisations</string>
 
 
 </resources>
