@@ -97,7 +97,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void placeAllMarker(ArrayList<Food> listFood){
         for (Food food :listFood) {
-            LatLng foodAdress = getLatAndLngFromAddress(food.street + " " + food.postalCode);
+            LatLng foodAdress = getLatAndLngFromAddress(food.street + " " + food.postalCode + " " + food.pays);
             if(foodAdress != null){
                 mMap.addMarker(new MarkerOptions().position(foodAdress).title(food.title));
             }
