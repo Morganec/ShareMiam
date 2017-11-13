@@ -47,13 +47,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
 
-        LatLng monAdress = getLatAndLngFromAddress(" 8 rue saint prudent 21110 Izier FRANCE ");
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker Sydney"));
+       Food foodTest = new Food("a","Pomme","descr","8 rue saint prudent ","21110","10-10-2018","FRANCE");
+       ArrayList<Food> listFood = new ArrayList<Food>();
+       listFood.add(foodTest);
+       placeAllMarker(listFood);
+
+       /* LatLng monAdress = getLatAndLngFromAddress(" 8 rue saint prudent 21110 Izier FRANCE ");
         mMap.addMarker(new MarkerOptions().position(monAdress).title("Marker in My adress"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(monAdress));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(monAdress)); */
 
 
 
@@ -78,16 +80,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Geocoder coder = new Geocoder(this);
         double longitude =0;
         double latitude=0;
+        LatLng latLng = null;
 
         try {
             ArrayList<Address> adresses = (ArrayList<Address>) coder.getFromLocationName(strAddress, 1);
             longitude = adresses.get(0).getLongitude();
             latitude = adresses.get(0).getLatitude();
+            latLng = new LatLng(latitude,longitude);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return new LatLng(latitude,longitude);
+        return latLng;
+
+    }
+
+    public void placeAllMarker(ArrayList<Food> listFood){
+        for (Food food :listFood) {
+            LatLng foodAdress = getLatAndLngFromAddress(food.street + " " + food.postalCode);
+            if(foodAdress != null){
+                mMap.addMarker(new MarkerOptions().position(foodAdress).title(food.title));
+            }
+
+        }
 
     }
 }

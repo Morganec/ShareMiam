@@ -94,6 +94,7 @@ public class AddItemActivity extends AppCompatActivity {
         EditText edtDescr = (EditText) findViewById(R.id.edtDescriptionItem);
         EditText edtPostalCode = (EditText) findViewById(R.id.edtCodePostal);
         EditText edtStreet = (EditText) findViewById(R.id.edtRue);
+        EditText edtCountry = (EditText) findViewById(R.id.edtCountry);
         EditText edtDate = (EditText) findViewById(R.id.edtValidityDate);
 
 
@@ -101,6 +102,7 @@ public class AddItemActivity extends AppCompatActivity {
         String title = edtTitle.getText().toString();
         String descr = edtDescr.getText().toString();
         String street = edtStreet.getText().toString();
+        String country = edtCountry.getText().toString();
         String postalCode = edtPostalCode.getText().toString();
 
 
@@ -109,7 +111,7 @@ public class AddItemActivity extends AppCompatActivity {
         DatabaseReference mDatabaseReference = mFirebaseDatabase.getReference("food");
         String uid = auth.getCurrentUser().getUid();
         String id= mDatabaseReference.push().getKey();
-        Food f = new Food(uid,title,descr,street,postalCode,validityDate);
+        Food f = new Food(uid,title,descr,street,postalCode,validityDate,country);
         mDatabaseReference.child(id).setValue(f);
     }
 

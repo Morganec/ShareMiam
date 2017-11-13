@@ -94,6 +94,14 @@
                 android:hint="@string/adress"
                 />
 
+            <EditText
+                android:id="@+id/edtCountry"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="@string/pays"
+                />
+
 
             <CheckBox
                 android:id="@+id/chbxConfirm"
