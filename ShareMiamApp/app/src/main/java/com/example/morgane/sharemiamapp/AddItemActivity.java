@@ -34,6 +34,10 @@ public class AddItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
 
+        EditText edtDate = (EditText) findViewById(R.id.edtValidityDate);
+
+        Date date = new Date();
+        edtDate.setText(new SimpleDateFormat("dd-MM-yyyy").format(date));
 
         final Button btnTakePict = (Button) findViewById(R.id.btnTakePicture);
         btnTakePict.setOnClickListener(new View.OnClickListener() {
