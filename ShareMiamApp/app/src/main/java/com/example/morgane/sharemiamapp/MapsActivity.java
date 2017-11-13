@@ -8,6 +8,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -19,6 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
@@ -29,6 +31,7 @@ import java.util.Map;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    public ArrayList<Food> listFood = new ArrayList<Food>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,34 +57,45 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-      // Food foodTest = new Food("a","Pomme","descr","8 rue saint prudent ","21110","10-10-2018","FRANCE");
-       final ArrayList<Food> listFood = new ArrayList<Food>();
-     //  listFood.add(foodTest);
 
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("food");
-        ref.addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        ArrayList<String> foodString = new ArrayList<String>();
-                        for (DataSnapshot dsp : dataSnapshot.getChildren()) {
-                            foodString.add(String.valueOf(dataSnapshot.getValue())); //add result into array list
-
-                        }
-                        System.out.println(foodString);
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        //handle databaseError
-                    }
-                });
 
 
-       placeAllMarker(listFood);
+        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        final Query query = reference.child("Food");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                 @Override
+                                                 public void onDataChange(DataSnapshot dataSnapshot) {
+                                                     if (dataSnapshot.exists()) {
+                                                         // dataSnapshot is the "issue" node with all children with id 0
+                                                         for (DataSnapshot singleFood : dataSnapshot.getChildren()) {
+
+
+                                                                     //singleFood.getValue(Food.class);
+
+                                                             Food f = new Food(singleFood.getValue(Food.class).uid,
+                                                                             singleFood.getValue(Food.class).title,
+                                                                             singleFood.getValue(Food.class).description,
+                                                                             singleFood.getValue(Food.class).street,
+                                                                             singleFood.getValue(Food.class).postalCode,
+                                                                             singleFood.getValue(Food.class).validityDate,
+                                                                             singleFood.getValue(Food.class).pays);
+
+                                                             listFood.add(f);
+                                                         }
+                                                         placeAllMarker(listFood);
+
+                                                     }
+                                                 }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
 
        /* LatLng monAdress = getLatAndLngFromAddress(" 8 rue saint prudent 21110 Izier FRANCE ");
         mMap.addMarker(new MarkerOptions().position(monAdress).title("Marker in My adress"));
@@ -136,22 +150,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    private ArrayList<Food> collectFoodList(Map<String,Object> foodMap) {
 
-        ArrayList<Food> foodList = new ArrayList<>();
-
-        for(Map.Entry<String, Object> entry : foodMap.entrySet()){
-            Map singleFood = (Map) entry.getValue();
-            Food food = new Food(singleFood.get("uid").toString(),
-                    singleFood.get("title").toString(),
-                    singleFood.get("description").toString(),
-                    singleFood.get("street").toString(),
-                    singleFood.get("postalCode").toString(),
-                    singleFood.get("validityDate").toString(),
-                    singleFood.get("pays").toString());
-            foodList.add(food);
-        }
-
-        return foodList;
-    }
 }

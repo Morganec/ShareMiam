@@ -108,7 +108,7 @@ public class AddItemActivity extends AppCompatActivity {
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference mDatabaseReference = mFirebaseDatabase.getReference("food");
+        DatabaseReference mDatabaseReference = mFirebaseDatabase.getReference("Food");
         String uid = auth.getCurrentUser().getUid();
         String id= mDatabaseReference.push().getKey();
         Food f = new Food(uid,title,descr,street,postalCode,validityDate,country);

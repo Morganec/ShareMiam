@@ -26,4 +26,7 @@ public class Food {
         this.pays = pays;
         this.validityDate = validityDate;
     }
+
+    public Food(){}
+
 }
