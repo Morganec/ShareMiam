@@ -226,23 +226,38 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                if (user != null && !newEmail.getText().toString().trim().equals("")) {
-                    user.updateEmail(newEmail.getText().toString().trim())
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(ProfileActivity.this, "Email address is updated. Please sign in with new email id!", Toast.LENGTH_LONG).show();
-                                        signOut();
-                                        progressBar.setVisibility(View.GONE);
-                                    } else {
-                                        Toast.makeText(ProfileActivity.this, "Failed to update email!", Toast.LENGTH_LONG).show();
-                                        progressBar.setVisibility(View.GONE);
-                                    }
+                InputMethodManager inputManager = (InputMethodManager)
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
+                if (user != null && !phone.getText().toString().trim().equals("")) {
+                    final DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                    final Query query = reference.child("Users").orderByChild("uid").equalTo(auth.getCurrentUser().getUid());
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                for (DataSnapshot user : dataSnapshot.getChildren()) {
+                                    String uid=user.getKey();
+                                    User u = new User(auth.getCurrentUser().getUid(),
+                                            user.getValue(User.class).email,
+                                            phone.getText().toString(),
+                                            user.getValue(User.class).Username);
+                                    reference.child("Users").child(uid).setValue(u);
+                                    Toast.makeText(ProfileActivity.this, "Phone number updated !", Toast.LENGTH_LONG).show();
                                 }
-                            });
-                } else if (newEmail.getText().toString().trim().equals("")) {
-                    newEmail.setError("Enter email");
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                    progressBar.setVisibility(View.GONE);
+                } else if (pseudo.getText().toString().trim().equals("")) {
+                    pseudo.setError("Enter pseudo");
                     progressBar.setVisibility(View.GONE);
                 }
             }
