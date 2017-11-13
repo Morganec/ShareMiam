@@ -52,6 +52,8 @@
     <string name="PostalCode">Code postal</string>
     <string name="adress">Nom et numéro de la rue</string>
     <string name="ckb_confirm">Je confirme avoir respecté les normes d\'hygiènes et avoir lu les conditions d\'utilisations</string>
+    <string name="change_phoneNumber">Change phone number</string>
+    <string name="change_nickname">change nickname</string>
     <string name="pays">Pays</string>
 
 

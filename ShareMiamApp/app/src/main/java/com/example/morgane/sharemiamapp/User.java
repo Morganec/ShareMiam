@@ -16,5 +16,6 @@ public class User {
         this.Phonenumber=phone;
         this.uid=uid;
     }
+    public User(){}
 
 }
