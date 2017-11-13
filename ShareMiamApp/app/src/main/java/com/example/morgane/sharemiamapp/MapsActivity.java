@@ -15,10 +15,16 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -48,9 +54,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-       Food foodTest = new Food("a","Pomme","descr","8 rue saint prudent ","21110","10-10-2018","FRANCE");
-       ArrayList<Food> listFood = new ArrayList<Food>();
-       listFood.add(foodTest);
+      // Food foodTest = new Food("a","Pomme","descr","8 rue saint prudent ","21110","10-10-2018","FRANCE");
+       final ArrayList<Food> listFood = new ArrayList<Food>();
+     //  listFood.add(foodTest);
+
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("food");
+        ref.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        ArrayList<String> foodString = new ArrayList<String>();
+                        for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+                            foodString.add(String.valueOf(dataSnapshot.getValue())); //add result into array list
+
+                        }
+                        System.out.println(foodString);
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //handle databaseError
+                    }
+                });
+
+
        placeAllMarker(listFood);
 
        /* LatLng monAdress = getLatAndLngFromAddress(" 8 rue saint prudent 21110 Izier FRANCE ");
@@ -104,5 +134,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         }
 
+    }
+
+    private ArrayList<Food> collectFoodList(Map<String,Object> foodMap) {
+
+        ArrayList<Food> foodList = new ArrayList<>();
+
+        for(Map.Entry<String, Object> entry : foodMap.entrySet()){
+            Map singleFood = (Map) entry.getValue();
+            Food food = new Food(singleFood.get("uid").toString(),
+                    singleFood.get("title").toString(),
+                    singleFood.get("description").toString(),
+                    singleFood.get("street").toString(),
+                    singleFood.get("postalCode").toString(),
+                    singleFood.get("validityDate").toString(),
+                    singleFood.get("pays").toString());
+            foodList.add(food);
+        }
+
+        return foodList;
     }
 }
