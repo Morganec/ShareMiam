@@ -21,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class SignupActivity extends AppCompatActivity {
 
-    private EditText inputEmail, inputPassword;
+    private EditText inputEmail, inputPassword,inputPhone, inputPseudo;
     private Button btnSignIn, btnSignUp, btnResetPassword;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
@@ -40,6 +40,8 @@ public class SignupActivity extends AppCompatActivity {
         btnSignUp = (Button) findViewById(R.id.sign_up_button);
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
+        inputPhone = (EditText) findViewById(R.id.phoneNumber);
+        inputPseudo = (EditText) findViewById(R.id.pseudonyme);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         btnResetPassword = (Button) findViewById(R.id.btn_reset_password);
 
@@ -63,7 +65,8 @@ public class SignupActivity extends AppCompatActivity {
 
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
-
+                String phone = inputPhone.getText().toString().trim();
+                String pseudo = inputPseudo.getText().toString().trim();
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Entrez une adresse email!", Toast.LENGTH_SHORT).show();
                     return;
@@ -76,6 +79,14 @@ public class SignupActivity extends AppCompatActivity {
 
                 if (password.length() < 6) {
                     Toast.makeText(getApplicationContext(), "Mot de passe trop faible, minimum 6 carractères!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(TextUtils.isEmpty(phone)){
+                    Toast.makeText(getApplicationContext(), "Entrez un numero de cellulaire", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(TextUtils.isEmpty(pseudo)){
+                    Toast.makeText(getApplicationContext(), "Entrez un pseudonyme", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -97,7 +108,7 @@ public class SignupActivity extends AppCompatActivity {
                                 } else {
                                     FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
                                     DatabaseReference mDatabaseReference = mFirebaseDatabase.getReference("Users");
-                                    User s = new User(auth.getCurrentUser().getUid(), auth.getCurrentUser().getEmail());
+                                    User s = new User(auth.getCurrentUser().getUid(), auth.getCurrentUser().getEmail(),inputPhone.getText().toString().trim(),inputPseudo.getText().toString().trim());
                                     String id= mDatabaseReference.push().getKey();
                                     mDatabaseReference.child(id).setValue(s);
                                     startActivity(new Intent(SignupActivity.this, MainActivity.class));
