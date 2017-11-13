@@ -6,66 +6,61 @@
     android:layout_height="match_parent"
     android:background="@drawable/bois"
     tools:context="com.example.morgane.sharemiamapp.MainActivity">
-    <ImageView
-        android:id="@+id/imgLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="fitEnd"
-        app:srcCompat="@drawable/logo" />
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/ScrollView01"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical">
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical">
+        android:background="@drawable/bois"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_horizontal_margin">
+
+
+
 
 
 
     <Button
         android:id="@+id/btnSeeMap"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Voir la carte"
-        android:background="#f48641"/>
+        android:background="@color/colorAccent"/>
 
-        <Space
-            android:layout_width="fill_parent"
-            android:layout_height="20dp"
-            />
+
 
     <Button
         android:id="@+id/btnAddItem"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Ajouter un item"
-        android:background="#f48641"
+        android:background="@color/colorAccent"
+        android:layout_marginTop="20dip"
         />
 
-        <Space
-            android:layout_width="fill_parent"
-            android:layout_height="20dp"
-            />
+
 
         <Button
             android:id="@+id/btnProfile"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Voir profil"
-            android:background="#f48641"
+            android:background="@color/colorAccent"
+            android:layout_marginTop="20dip"
             />
 
+
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitEnd"
+            app:srcCompat="@drawable/logo" />
 
 
 
     </LinearLayout>
-
-
-    </ScrollView>
 
 
 </android.support.constraint.ConstraintLayout>
