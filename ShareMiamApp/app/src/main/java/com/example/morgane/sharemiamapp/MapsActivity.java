@@ -2,6 +2,8 @@ package com.example.morgane.sharemiamapp;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -13,6 +15,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -43,24 +49,45 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
+        LatLng monAdress = getLatAndLngFromAddress(" 8 rue saint prudent 21110 Izier FRANCE ");
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker Sydney"));
+        mMap.addMarker(new MarkerOptions().position(monAdress).title("Marker in My adress"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(monAdress));
 
 
 
 
         int permissionCheck = ContextCompat.checkSelfPermission(MapsActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION);
-        if(permissionCheck != PackageManager.PERMISSION_GRANTED) {
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
             // ask permissions here using below code
             ActivityCompat.requestPermissions(MapsActivity.this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},0);
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
             mMap.setMyLocationEnabled(true);
-        }else{
+        } else {
             mMap.setMyLocationEnabled(true);
         }
 
+
+    }
+
+
+    public LatLng getLatAndLngFromAddress(String strAddress) {
+
+        Geocoder coder = new Geocoder(this);
+        double longitude =0;
+        double latitude=0;
+
+        try {
+            ArrayList<Address> adresses = (ArrayList<Address>) coder.getFromLocationName(strAddress, 1);
+            longitude = adresses.get(0).getLongitude();
+            latitude = adresses.get(0).getLatitude();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return new LatLng(latitude,longitude);
 
     }
 }

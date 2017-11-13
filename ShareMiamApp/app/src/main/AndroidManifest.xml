@@ -40,6 +40,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+
         </activity>
 
         <!--
@@ -55,6 +57,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
+
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".AddItemActivity" />
@@ -62,6 +65,7 @@
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".ProfileActivity"></activity>
         <activity android:name=".SignupActivity" />
+
     </application>
 
 </manifest>
