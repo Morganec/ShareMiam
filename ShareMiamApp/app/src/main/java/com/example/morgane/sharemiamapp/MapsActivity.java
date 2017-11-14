@@ -151,13 +151,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (final Food food :listFood) {
             LatLng foodAdress = getLatAndLngFromAddress(food.street + " " + food.postalCode + " " + food.pays);
             if(foodAdress != null){
-                Marker marker = mMap.addMarker(new MarkerOptions().position(foodAdress).title(food.title + " Cliquer pour +infos"));
+                Marker marker = mMap.addMarker(new MarkerOptions().position(foodAdress).title(food.title + ": \n Cliquer pour +infos"));
+                marker.setTag(food);
                 mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                     @Override
                     public void onInfoWindowClick(Marker marker) {
+                        Food objectFood =  (Food)marker.getTag();
                         Intent intent = new Intent(MapsActivity.this, FoodDetailActivity.class);
-                        intent.putExtra("title", marker.getTitle() );
-                        intent.putExtra("descr", marker.getTitle() );
+                        intent.putExtra("title", objectFood.title );
+                        intent.putExtra("descr", objectFood.description );
                         startActivity(intent);
 
                     }
