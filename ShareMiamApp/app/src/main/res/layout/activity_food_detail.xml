@@ -4,21 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bois"
     tools:context="com.example.morgane.sharemiamapp.FoodDetailActivity">
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/ScrollView01"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical">
-
-    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@drawable/bois"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="@dimen/activity_horizontal_margin">
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_horizontal_margin">
 
         <TextView
             android:id="@+id/txtItemTitle"
@@ -28,8 +28,16 @@
             android:gravity="center_horizontal"
             android:padding="@dimen/activity_horizontal_margin"
             android:text="@string/item_title"
-            android:textColor="@android:color/white"
-            android:textSize="14dp" />
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/noimage" />
+
+
 
         <TextView
             android:id="@+id/txtItemDescription"
@@ -39,10 +47,33 @@
             android:gravity="center_horizontal"
             android:padding="@dimen/activity_horizontal_margin"
             android:text="@string/item_description"
-            android:textColor="@android:color/white"
             android:textSize="14dp" />
 
+        <TextView
+            android:id="@+id/txtValidityDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:text="@string/validityDate"
+            android:textSize="14dp"
+            android:textColor="@color/colorAccent"/>
+
+
+
+        <Button
+            android:id="@+id/btn_buyFood"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:background="@color/colorAccent"
+            android:text="@string/btn_buyFood"
+            android:textColor="@android:color/white" />
+
     </LinearLayout>
+
+
 
     </ScrollView>
 

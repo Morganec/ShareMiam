@@ -57,6 +57,7 @@
     <string name="pays">Pays</string>
     <string name="item_title">Titre de l\'item</string>
     <string name="item_description">Description de l\'item</string>
+    <string name="btn_buyFood">Acheter</string>
 
 
 </resources>

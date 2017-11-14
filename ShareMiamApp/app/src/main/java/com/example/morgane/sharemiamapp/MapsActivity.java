@@ -160,6 +160,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         Intent intent = new Intent(MapsActivity.this, FoodDetailActivity.class);
                         intent.putExtra("title", objectFood.title );
                         intent.putExtra("descr", objectFood.description );
+                        intent.putExtra("validDate", objectFood.validityDate );
                         startActivity(intent);
 
                     }

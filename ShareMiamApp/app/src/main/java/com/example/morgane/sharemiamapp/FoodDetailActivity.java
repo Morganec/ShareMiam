@@ -14,12 +14,14 @@ public class FoodDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_food_detail);
         TextView twTitle = (TextView) findViewById(R.id.txtItemTitle);
         TextView twDescription = (TextView) findViewById(R.id.txtItemDescription);
+        TextView twDateValid = (TextView) findViewById(R.id.txtValidityDate);
 
         Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
 
-        Bundle titreAndDescr = intent.getExtras();
+        twTitle.setText((String)extras.get("title"));
+        twDescription.setText((String)extras.get("descr"));
+        twDateValid.setText((String)extras.get("validDate"));
 
-        twTitle.setText((String)titreAndDescr.get("title"));
-        twDescription.setText((String)titreAndDescr.get("descr"));
     }
 }
