@@ -1,6 +1,7 @@
 package com.example.morgane.sharemiamapp;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -8,6 +9,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -15,7 +19,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -56,6 +62,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+
 
 
 
@@ -140,15 +148,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void placeAllMarker(ArrayList<Food> listFood){
-        for (Food food :listFood) {
+        for (final Food food :listFood) {
             LatLng foodAdress = getLatAndLngFromAddress(food.street + " " + food.postalCode + " " + food.pays);
             if(foodAdress != null){
-                mMap.addMarker(new MarkerOptions().position(foodAdress).title(food.title));
+                Marker marker = mMap.addMarker(new MarkerOptions().position(foodAdress).title(food.title + " Cliquer pour +infos"));
+                mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                    @Override
+                    public void onInfoWindowClick(Marker marker) {
+                        Intent intent = new Intent(MapsActivity.this, FoodDetailActivity.class);
+                        intent.putExtra(food.title,food.uid);
+                        startActivity(intent);
+
+                    }
+                });
             }
+
+
+
+
 
         }
 
     }
+
+
+
+
 
 
 }
