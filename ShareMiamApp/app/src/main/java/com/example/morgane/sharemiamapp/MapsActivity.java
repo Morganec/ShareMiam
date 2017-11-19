@@ -106,11 +106,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-       /* LatLng monAdress = getLatAndLngFromAddress(" 8 rue saint prudent 21110 Izier FRANCE ");
-        mMap.addMarker(new MarkerOptions().position(monAdress).title("Marker in My adress"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(monAdress)); */
-
-
 
 
         int permissionCheck = ContextCompat.checkSelfPermission(MapsActivity.this,

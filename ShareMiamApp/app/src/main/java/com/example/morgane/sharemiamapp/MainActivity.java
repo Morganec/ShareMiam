@@ -108,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
         ListView lvPlat = (ListView) findViewById(R.id.listViewFood);
 
 
-
         FoodAdapter adapter = new FoodAdapter(MainActivity.this, listFood);
         lvPlat.setAdapter(adapter);
     }

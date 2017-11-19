@@ -1,6 +1,7 @@
 package com.example.morgane.sharemiamapp;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -15,6 +16,7 @@ public class Food {
     public String street;
     public String postalCode;
     public String validityDate;
+    public String addTime;
     public String pays;
 
     public Food(String uid, String title, String descr , String street, String postalCode, String validityDate, String pays ){
@@ -25,6 +27,9 @@ public class Food {
         this.postalCode = postalCode;
         this.pays = pays;
         this.validityDate = validityDate;
+
+        Date date = new Date();
+        this.addTime=  new SimpleDateFormat("dd-MM-yyyy").format(date) + " " + new SimpleDateFormat("HH:mm").format(date);
     }
 
     public Food(){}
