@@ -48,6 +48,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+listFood.addAll((ArrayList<Food>) extras.get("foodList"));
+placeAllMarker(listFood);
+
     }
 
 
@@ -68,7 +74,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-
+/*
 
         final DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         final Query query = reference.child("Food");
@@ -106,7 +112,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-
+*/
 
         int permissionCheck = ContextCompat.checkSelfPermission(MapsActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION);
