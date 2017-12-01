@@ -44,7 +44,7 @@ import java.util.ArrayList;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    public ArrayList<Food> listFood = new ArrayList<Food>();
+    //public ArrayList<Food> listFood = new ArrayList<Food>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,45 +76,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-
-
-
-
-
-
-        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        final Query query = reference.child("Food");
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    // dataSnapshot is the "issue" node with all children with id 0
-                    for (DataSnapshot singleFood : dataSnapshot.getChildren()) {
-
-
-                        //singleFood.getValue(Food.class);
-
-                        Food f = new Food(singleFood.getValue(Food.class).uid,
-                                singleFood.getValue(Food.class).title,
-                                singleFood.getValue(Food.class).description,
-                                singleFood.getValue(Food.class).street,
-                                singleFood.getValue(Food.class).postalCode,
-                                singleFood.getValue(Food.class).validityDate,
-                                singleFood.getValue(Food.class).pays,
-                                singleFood.getValue(Food.class).image);
-
-                        listFood.add(f);
-                    }
-                    placeAllMarker(listFood);
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+     placeAllMarker(Constant.FOOD_ARRAY_LIST);
 
 
 
@@ -181,14 +143,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     public void onInfoWindowClick(Marker marker) {
                         Food objectFood =  (Food)marker.getTag();
                         Intent intent = new Intent(MapsActivity.this, FoodDetailActivity.class);
-                        intent.putExtra("title", objectFood.title );
+                        intent.putExtra("uid",objectFood.uid);
+                        /*intent.putExtra("title", objectFood.title );
                         intent.putExtra("descr", objectFood.description );
                         intent.putExtra("validDate", objectFood.validityDate );
                         byte[] decodedBytes = Base64.decode(food.image, 0);
 
                         Bitmap monImage = getBitMapImage(objectFood.image);
                         monImage = Bitmap.createScaledBitmap(monImage, 200, 200, true);
-                        intent.putExtra("monImage", monImage );
+                        intent.putExtra("monImage", monImage ); */
                         startActivity(intent);
 
                     }

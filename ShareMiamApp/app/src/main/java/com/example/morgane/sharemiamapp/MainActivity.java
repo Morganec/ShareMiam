@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
                         listFood.add(f);
                     }
+                    Constant.FOOD_ARRAY_LIST = listFood;
                     remplirListView(listFood);
 
 
