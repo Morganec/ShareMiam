@@ -28,12 +28,10 @@ public class FoodDetailActivity extends AppCompatActivity {
         twTitle.setText((String)extras.get("title"));
         twDescription.setText((String)extras.get("descr"));
         twDateValid.setText((String)extras.get("validDate"));
-        //String image = (String)extras.get("imag");
-       /* byte[] decodedBytes = Base64.decode(image, 0);
-        Bitmap monImage = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
-        monImage = Bitmap.createScaledBitmap(monImage, 300, 300, false);
-        BitmapDrawable imageDraw = new BitmapDrawable(monImage);*/
-      // imageView.setBackground(imageDraw);
+        Bitmap image = (Bitmap) extras.get("monImage");
+
+        BitmapDrawable imageDraw = new BitmapDrawable(image);
+       imageView.setBackground(imageDraw);
 
     }
 }

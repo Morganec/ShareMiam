@@ -1,7 +1,7 @@
 package com.example.morgane.sharemiamapp;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -159,11 +159,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void placeAllMarker(ArrayList<Food> listFood){
         for (final Food food :listFood) {
 
-            byte[] decodedBytes = Base64.decode(food.image, 0);
-            Bitmap monImage = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+
+            Bitmap monImage = getBitMapImage(food.image);
            monImage = Bitmap.createScaledBitmap(monImage, 300, 300, false);
-          // monImage = GetBitmapClippedCircle(monImage);
-           monImage = TransformBitmap(monImage);
+           monImage = TransformMarkerIcon(monImage);
             BitmapDrawable imageDraw = new BitmapDrawable(monImage);
 
             LatLng foodAdress = getLatAndLngFromAddress(food.street + " " + food.postalCode + " " + food.pays);
@@ -185,7 +184,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         intent.putExtra("title", objectFood.title );
                         intent.putExtra("descr", objectFood.description );
                         intent.putExtra("validDate", objectFood.validityDate );
-                        //intent.putExtra("monImage", ( String )objectFood.image );
+                        byte[] decodedBytes = Base64.decode(food.image, 0);
+
+                        Bitmap monImage = getBitMapImage(objectFood.image);
+                        monImage = Bitmap.createScaledBitmap(monImage, 200, 200, true);
+                        intent.putExtra("monImage", monImage );
                         startActivity(intent);
 
                     }
@@ -221,7 +224,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-    public static Bitmap TransformBitmap(Bitmap bitmap) {
+    public static Bitmap TransformMarkerIcon(Bitmap bitmap) {
 
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
         int outerMargin = 20;
@@ -261,6 +264,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
+public Bitmap getBitMapImage(String image){
+    byte[] decodedBytes = Base64.decode(image, 0);
+    Bitmap monImage = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+return monImage;
+}
 
 
 }
