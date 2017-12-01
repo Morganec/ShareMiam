@@ -1,18 +1,31 @@
 package com.example.morgane.sharemiamapp;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.RectF;
+import android.graphics.Shader;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Base64;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -145,11 +158,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void placeAllMarker(ArrayList<Food> listFood){
         for (final Food food :listFood) {
+
+            byte[] decodedBytes = Base64.decode(food.image, 0);
+            Bitmap monImage = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+           monImage = Bitmap.createScaledBitmap(monImage, 300, 300, false);
+          // monImage = GetBitmapClippedCircle(monImage);
+           monImage = TransformBitmap(monImage);
+            BitmapDrawable imageDraw = new BitmapDrawable(monImage);
+
             LatLng foodAdress = getLatAndLngFromAddress(food.street + " " + food.postalCode + " " + food.pays);
             if(foodAdress != null){
                 Marker marker = mMap.addMarker(new MarkerOptions()
                         .position(foodAdress)
-                        .title(food.title + ": \n Cliquer pour +infos")
+                        .title(food.title + ": \n Cliquer pour +infos" )
+                        .icon(BitmapDescriptorFactory.fromBitmap(((BitmapDrawable)imageDraw).getBitmap()))
+
                 );
 
 // .icon(BitmapDescriptorFactory.fromResource(R.drawable.noimage)
@@ -176,7 +199,65 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
+    public static Bitmap GetBitmapClippedCircle(Bitmap bitmap) {
 
+        final int width = bitmap.getWidth();
+        final int height = bitmap.getHeight();
+        final Bitmap outputBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+
+        final Path path = new Path();
+        path.addCircle(
+                (float)(width / 2)
+                , (float)(height / 2)
+                , (float) Math.min(width, (height / 2))
+                , Path.Direction.CCW);
+
+        final Canvas canvas = new Canvas(outputBitmap);
+        canvas.clipPath(path);
+        canvas.drawBitmap(bitmap, 0,0, null);
+        return outputBitmap;
+    }
+
+
+
+    public static Bitmap TransformBitmap(Bitmap bitmap) {
+
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        int outerMargin = 20;
+        int margin = 10;
+        Canvas canvas = new Canvas(output);
+
+        Paint paintBorder = new Paint();
+        paintBorder.setColor(Color.RED);
+        canvas.drawRoundRect(new RectF(outerMargin, outerMargin, bitmap.getWidth() - outerMargin, bitmap.getHeight() - outerMargin), 0, 0, paintBorder);
+
+        Paint trianglePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+        trianglePaint.setStrokeWidth(2);
+        trianglePaint.setColor(Color.RED);
+        trianglePaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        trianglePaint.setAntiAlias(true);
+
+        Path triangle = new Path();
+        triangle.setFillType(Path.FillType.EVEN_ODD);
+        triangle.moveTo(outerMargin, bitmap.getHeight() / 2);
+        triangle.lineTo(bitmap.getWidth()/2,bitmap.getHeight());
+        triangle.lineTo(bitmap.getWidth()-outerMargin,bitmap.getHeight()/2);
+        triangle.close();
+
+        canvas.drawPath(triangle, trianglePaint);
+
+        final Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setShader(new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP));
+        canvas.drawRoundRect(new RectF(margin+outerMargin, margin+outerMargin, bitmap.getWidth() - (margin + outerMargin), bitmap.getHeight() - (margin + outerMargin)), 0, 0, paint);
+
+        if (bitmap != output) {
+            bitmap.recycle();
+        }
+
+        return output;
+    }
 
 
 

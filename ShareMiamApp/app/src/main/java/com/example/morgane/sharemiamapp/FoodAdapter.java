@@ -41,7 +41,6 @@ class FoodAdapter  extends ArrayAdapter<Food>{
             convertView.setTag(viewHolder);
         }
 
-        //getItem(position) va récupérer l'item [position] de la List<Tweet> tweets
        Food food = getItem(position);
 
         //il ne reste plus qu'à remplir notre vue
@@ -51,8 +50,6 @@ class FoodAdapter  extends ArrayAdapter<Food>{
         Bitmap monImage = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
         BitmapDrawable imageDraw = new BitmapDrawable(monImage);
         viewHolder.image.setBackground(imageDraw);
-
-      //  viewHolder.image.setImageResource(R.drawable.noimage);
 
         return convertView;
     }
