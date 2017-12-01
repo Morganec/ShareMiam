@@ -1,7 +1,11 @@
 package com.example.morgane.sharemiamapp;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +47,12 @@ class FoodAdapter  extends ArrayAdapter<Food>{
         //il ne reste plus qu'à remplir notre vue
         viewHolder.title.setText(food.title);
         viewHolder.text.setText(food.description);
-        viewHolder.image.setImageResource(R.drawable.noimage);
+        byte[] decodedBytes = Base64.decode(food.image, 0);
+        Bitmap monImage = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+        BitmapDrawable imageDraw = new BitmapDrawable(monImage);
+        viewHolder.image.setBackground(imageDraw);
+
+      //  viewHolder.image.setImageResource(R.drawable.noimage);
 
         return convertView;
     }
