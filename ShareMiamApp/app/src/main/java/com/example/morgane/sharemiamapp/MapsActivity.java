@@ -9,20 +9,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.Task;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,8 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -48,12 +41,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
+/*
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-listFood.addAll((ArrayList<Food>) extras.get("foodList"));
-placeAllMarker(listFood);
-
+        listFood.addAll((ArrayList<Food>) extras.get("foodList"));
+        placeAllMarker(listFood);
+*/
     }
 
 
@@ -74,34 +67,34 @@ placeAllMarker(listFood);
 
 
 
-/*
+
 
         final DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         final Query query = reference.child("Food");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                 @Override
-                                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                                     if (dataSnapshot.exists()) {
-                                                         // dataSnapshot is the "issue" node with all children with id 0
-                                                         for (DataSnapshot singleFood : dataSnapshot.getChildren()) {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // dataSnapshot is the "issue" node with all children with id 0
+                    for (DataSnapshot singleFood : dataSnapshot.getChildren()) {
 
 
-                                                                     //singleFood.getValue(Food.class);
+                        //singleFood.getValue(Food.class);
 
-                                                             Food f = new Food(singleFood.getValue(Food.class).uid,
-                                                                             singleFood.getValue(Food.class).title,
-                                                                             singleFood.getValue(Food.class).description,
-                                                                             singleFood.getValue(Food.class).street,
-                                                                             singleFood.getValue(Food.class).postalCode,
-                                                                             singleFood.getValue(Food.class).validityDate,
-                                                                             singleFood.getValue(Food.class).pays);
+                        Food f = new Food(singleFood.getValue(Food.class).uid,
+                                singleFood.getValue(Food.class).title,
+                                singleFood.getValue(Food.class).description,
+                                singleFood.getValue(Food.class).street,
+                                singleFood.getValue(Food.class).postalCode,
+                                singleFood.getValue(Food.class).validityDate,
+                                singleFood.getValue(Food.class).pays);
 
-                                                             listFood.add(f);
-                                                         }
-                                                         placeAllMarker(listFood);
+                        listFood.add(f);
+                    }
+                    placeAllMarker(listFood);
 
-                                                     }
-                                                 }
+                }
+            }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -112,7 +105,7 @@ placeAllMarker(listFood);
 
 
 
-*/
+
 
         int permissionCheck = ContextCompat.checkSelfPermission(MapsActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION);

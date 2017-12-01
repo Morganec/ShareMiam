@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-                intent.putExtra("foodList",listFood);
+                //intent.putExtra("foodList",listFood);
                 startActivity(intent);
             }
         });
