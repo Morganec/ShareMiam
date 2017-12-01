@@ -85,7 +85,8 @@ public class MainActivity extends AppCompatActivity {
                                 singleFood.getValue(Food.class).street,
                                 singleFood.getValue(Food.class).postalCode,
                                 singleFood.getValue(Food.class).validityDate,
-                                singleFood.getValue(Food.class).pays);
+                                singleFood.getValue(Food.class).pays,
+                                singleFood.getValue(Food.class).image);
 
                         listFood.add(f);
                     }

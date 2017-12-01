@@ -3,16 +3,19 @@ package com.example.morgane.sharemiamapp;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -27,26 +31,61 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class AddItemActivity extends AppCompatActivity {
+    private static final int RESULT_LOAD_IMG = 0;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     String mCurrentPhotoPath;
+    Button btnTakePicture;
+    Button btnChoosePicture;
+    Button btnSupprImage;
+    ImageView imageViewFood;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
-
+        btnTakePicture = ( Button) findViewById(R.id.btnTakePicture);
+        btnChoosePicture = (Button) findViewById(R.id.btnChoosePicture);
+        btnSupprImage = (Button)findViewById(R.id.btnDeleteImg);
+        imageViewFood = (ImageView) findViewById(R.id.imageFood);
         EditText edtDate = (EditText) findViewById(R.id.edtValidityDate);
 
         Date date = new Date();
         edtDate.setText(new SimpleDateFormat("dd-MM-yyyy").format(date));
 
-        final Button btnTakePict = (Button) findViewById(R.id.btnTakePicture);
-        btnTakePict.setOnClickListener(new View.OnClickListener() {
+
+        btnTakePicture.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-               dispatchTakePictureIntent();
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+
+                    startActivityForResult(takePictureIntent,REQUEST_IMAGE_CAPTURE);
+                    takePictureIntent.getExtras();
+
+
+                }
             }
         });
+
+       btnChoosePicture.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
+            }
+        });
+
+       btnSupprImage.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               imageViewFood.setVisibility(View.GONE);
+               btnChoosePicture.setEnabled(true);
+               btnTakePicture.setEnabled(true);
+               btnSupprImage.setVisibility(View.GONE);
+           }
+       });
 
         final Button btnAdd= (Button) findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -79,13 +118,7 @@ public class AddItemActivity extends AppCompatActivity {
 
     }
 
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        }
 
-    }
 
 
     private void  addItem(){
@@ -106,19 +139,61 @@ public class AddItemActivity extends AppCompatActivity {
         String postalCode = edtPostalCode.getText().toString();
 
 
+        String image = saveImage();
+
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference mDatabaseReference = mFirebaseDatabase.getReference("Food");
         String uid = auth.getCurrentUser().getUid();
         String id= mDatabaseReference.push().getKey();
-        Food f = new Food(uid,title,descr,street,postalCode,validityDate,country);
+        Food f = new Food(uid,title,descr,street,postalCode,validityDate,country,image);
         mDatabaseReference.child(id).setValue(f);
     }
 
+    private String saveImage() {
+        imageViewFood.setDrawingCacheEnabled(true);
+        imageViewFood.buildDrawingCache();
+        Bitmap bitmap = imageViewFood.getDrawingCache();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+        String imageB64 = Base64.encodeToString(data, Base64.DEFAULT);
+        return imageB64;
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            BitmapDrawable imageDraw = new BitmapDrawable(imageBitmap);
+           imageViewFood.setBackground(imageDraw);
+
+        }else if(requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK){
+            Bitmap bm=null;
+            if (data != null) {
+                try {
+                    bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            BitmapDrawable imageDraw = new BitmapDrawable(bm);
+            imageViewFood.setBackground(imageDraw);
 
 
 
+        }
+        imageViewFood.setVisibility(View.VISIBLE);
+        btnSupprImage.setVisibility(View.VISIBLE);
+        btnTakePicture.setEnabled(false);
+        btnChoosePicture.setEnabled(false);
 
 
+
+    }
 
 }

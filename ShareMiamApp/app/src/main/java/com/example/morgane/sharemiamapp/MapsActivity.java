@@ -87,7 +87,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 singleFood.getValue(Food.class).street,
                                 singleFood.getValue(Food.class).postalCode,
                                 singleFood.getValue(Food.class).validityDate,
-                                singleFood.getValue(Food.class).pays);
+                                singleFood.getValue(Food.class).pays,
+                                singleFood.getValue(Food.class).image);
 
                         listFood.add(f);
                     }

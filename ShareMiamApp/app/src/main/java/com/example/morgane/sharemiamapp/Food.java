@@ -18,8 +18,9 @@ public class Food {
     public String validityDate;
     public String addTime;
     public String pays;
+    public String image;
 
-    public Food(String uid, String title, String descr , String street, String postalCode, String validityDate, String pays ){
+    public Food(String uid, String title, String descr , String street, String postalCode, String validityDate, String pays, String image ){
         this.uid = uid;
         this.title = title;
         this.description = descr;
@@ -27,7 +28,7 @@ public class Food {
         this.postalCode = postalCode;
         this.pays = pays;
         this.validityDate = validityDate;
-
+this.image = image;
         Date date = new Date();
         this.addTime=  new SimpleDateFormat("dd-MM-yyyy").format(date) + " " + new SimpleDateFormat("HH:mm").format(date);
     }

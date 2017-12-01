@@ -47,7 +47,7 @@
     <string name="validityDate">Date de validité du plat</string>
     <string name="foodTitle">Titre du plat</string>
     <string name="FormAddItemExplanation">Veuillez remplir ce formulaire afin d\'ajouter un nouveau plat</string>
-    <string name="takePicture">Prendre une photo du plat</string>
+    <string name="takePicture">Prendre une photo</string>
     <string name="FoodLocalisation">Lieu de récupération du plat :</string>
     <string name="PostalCode">Code postal</string>
     <string name="adress">Nom et numéro de la rue</string>
@@ -58,6 +58,7 @@
     <string name="item_title">Titre de l\'item</string>
     <string name="item_description">Description de l\'item</string>
     <string name="btn_buyFood">Acheter</string>
+    <string name="choosePicture">Selectionner Photo</string>
 
 
 </resources>
