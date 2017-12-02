@@ -146,6 +146,16 @@
             android:textColor="@android:color/white"
             android:textStyle="bold" />
 
+
+
+
+            <ListView
+                android:id="@+id/viewProfil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+
         <Button
             android:id="@+id/change_email_button"
             style="?android:textAppearanceSmall"

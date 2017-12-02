@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,6 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class ProfileActivity extends AppCompatActivity {
 
     private Button btnChangeEmail, btnChangePassword, btnSendResetEmail, btnRemoveUser,
@@ -32,6 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
+    private User currentUser = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +48,17 @@ public class ProfileActivity extends AppCompatActivity {
 
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
+for(User u : Constant.USERS_ARRAY_LIST){
+     if(u.uid.equals(auth.getCurrentUser().getUid())){
+         currentUser = u;
+     }
+ }
 
+if(currentUser != null){
+     ArrayList<User> listInterm = new ArrayList<User>();
+     listInterm.add(currentUser);
+     remplirListView(listInterm);
+ }
         //get current user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -416,5 +430,11 @@ public class ProfileActivity extends AppCompatActivity {
         if (authListener != null) {
             auth.removeAuthStateListener(authListener);
         }
+    }
+
+    private void remplirListView(ArrayList<User> listUser) {
+        ListView profilApercu = (ListView) findViewById(R.id.viewProfil);
+        UserAdapter adapter = new UserAdapter(ProfileActivity.this, listUser);
+        profilApercu.setAdapter(adapter);
     }
 }

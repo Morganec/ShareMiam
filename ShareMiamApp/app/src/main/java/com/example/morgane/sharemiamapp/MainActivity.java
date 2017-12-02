@@ -145,8 +145,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void remplirListView(ArrayList<Food> listFood) {
         ListView lvPlat = (ListView) findViewById(R.id.listViewFood);
-
-
         FoodAdapter adapter = new FoodAdapter(MainActivity.this, listFood);
         lvPlat.setAdapter(adapter);
     }
