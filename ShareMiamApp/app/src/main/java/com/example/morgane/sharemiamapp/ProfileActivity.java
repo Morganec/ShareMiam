@@ -203,6 +203,8 @@ if(currentUser != null){
                                             user.getValue(User.class).imageProfil,
                                             user.getValue(User.class).note);
                                     reference.child("Users").child(uid).setValue(u);
+                                    Constant.USERS_ARRAY_LIST.remove(currentUser);
+                                    Constant.USERS_ARRAY_LIST.add(u);
                                     Toast.makeText(ProfileActivity.this, "Nickname updated !", Toast.LENGTH_LONG).show();
                                 }
                             }
@@ -263,6 +265,8 @@ if(currentUser != null){
                                             user.getValue(User.class).imageProfil,
                                             user.getValue(User.class).note);
                                     reference.child("Users").child(uid).setValue(u);
+                                    Constant.USERS_ARRAY_LIST.remove(currentUser);
+                                    Constant.USERS_ARRAY_LIST.add(u);
                                     Toast.makeText(ProfileActivity.this, "Phone number updated !", Toast.LENGTH_LONG).show();
                                 }
                             }
