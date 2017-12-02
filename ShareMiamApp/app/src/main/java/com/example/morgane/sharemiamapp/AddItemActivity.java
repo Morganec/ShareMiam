@@ -119,8 +119,6 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
 
-
-
     private void  addItem(){
 
         EditText edtTitle = (EditText) findViewById(R.id.edtTitleItem);
