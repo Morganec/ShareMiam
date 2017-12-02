@@ -39,6 +39,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -122,36 +123,45 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
            monImage = TransformMarkerIcon(monImage);
             BitmapDrawable imageDraw = new BitmapDrawable(monImage);
 
-            LatLng foodAdress = getLatAndLngFromAddress(food.street + " " + food.postalCode + " " + food.pays);
-            if(foodAdress != null){
-                Marker marker = mMap.addMarker(new MarkerOptions()
-                        .position(foodAdress)
-                        .title(food.title + ": \n Cliquer pour +infos" )
-                        .icon(BitmapDescriptorFactory.fromBitmap(((BitmapDrawable)imageDraw).getBitmap()))
+            // LatLng foodAdress = getLatAndLngFromAddress(food.street + " " + food.postalCode + " " + food.pays);
 
-                );
+            try {
+                // May throw an IOException
+                Geocoder coder = new Geocoder(this);
+                List<Address> address = coder.getFromLocationName(food.street + " " + food.postalCode + " " + food.pays, 5);
+                if (!address.isEmpty()) {
+                    Address location = address.get(0);
+                    location.getLatitude();
+                    location.getLongitude();
+
+                     LatLng foodAdress = new LatLng(location.getLatitude(), location.getLongitude() );
+                    Marker marker = mMap.addMarker(new MarkerOptions()
+                            .position(foodAdress)
+                            .title(food.title + ": \n Cliquer pour +infos" )
+                            .icon(BitmapDescriptorFactory.fromBitmap(((BitmapDrawable)imageDraw).getBitmap()))
+
+                    );
 
 // .icon(BitmapDescriptorFactory.fromResource(R.drawable.noimage)
-                marker.setTag(food);
-                mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-                    @Override
-                    public void onInfoWindowClick(Marker marker) {
-                        Food objectFood =  (Food)marker.getTag();
-                        Intent intent = new Intent(MapsActivity.this, FoodDetailActivity.class);
-                        intent.putExtra("uid",objectFood.uid);
-                        /*intent.putExtra("title", objectFood.title );
-                        intent.putExtra("descr", objectFood.description );
-                        intent.putExtra("validDate", objectFood.validityDate );
-                        byte[] decodedBytes = Base64.decode(food.image, 0);
+                    marker.setTag(food);
+                    mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                        @Override
+                        public void onInfoWindowClick(Marker marker) {
+                            Food objectFood =  (Food)marker.getTag();
+                            Intent intent = new Intent(MapsActivity.this, FoodDetailActivity.class);
+                            intent.putExtra("uid",objectFood.uid);
+                            startActivity(intent);
 
-                        Bitmap monImage = getBitMapImage(objectFood.image);
-                        monImage = Bitmap.createScaledBitmap(monImage, 200, 200, true);
-                        intent.putExtra("monImage", monImage ); */
-                        startActivity(intent);
+                        }
+                    });
+                }
 
-                    }
-                });
+
+            } catch (IOException ex) {
+
+                ex.printStackTrace();
             }
+
 
 
 

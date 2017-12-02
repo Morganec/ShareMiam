@@ -4,9 +4,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -145,6 +146,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void remplirListView(ArrayList<Food> listFood) {
         ListView lvPlat = (ListView) findViewById(R.id.listViewFood);
+        lvPlat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Food food =(Food) parent.getItemAtPosition(position);
+                Intent intent = new Intent(MainActivity.this, FoodDetailActivity.class);
+                intent.putExtra("uid",food.uid);
+                startActivity(intent);
+            }
+        });
         FoodAdapter adapter = new FoodAdapter(MainActivity.this, listFood);
         lvPlat.setAdapter(adapter);
     }

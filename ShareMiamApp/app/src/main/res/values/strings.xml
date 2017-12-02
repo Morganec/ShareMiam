@@ -54,7 +54,7 @@
     <string name="ckb_confirm">Je confirme avoir respecté les normes d\'hygiènes et avoir lu les conditions d\'utilisations</string>
     <string name="change_phoneNumber">Change phone number</string>
     <string name="change_nickname">change nickname</string>
-    <string name="pays">Pays</string>
+    <string name="pays">Ville, Pays</string>
     <string name="item_title">Titre de l\'item</string>
     <string name="item_description">Description de l\'item</string>
     <string name="btn_buyFood">Acheter</string>
