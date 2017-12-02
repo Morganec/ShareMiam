@@ -20,7 +20,6 @@ import java.util.List;
  */
 
 class FoodAdapter  extends ArrayAdapter<Food>{
-    //tweets est la liste des models à afficher
     public FoodAdapter(Context context, List<Food> foodList) {
         super(context, 0, foodList);
     }

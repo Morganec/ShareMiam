@@ -10,6 +10,7 @@ import java.util.Date;
 
 public class Food {
     public String uid;
+    public String uidUser;
     public boolean deleted = false;
     public String title;
     public String description;
@@ -20,7 +21,7 @@ public class Food {
     public String pays;
     public String image;
 
-    public Food(String uid, String title, String descr , String street, String postalCode, String validityDate, String pays, String image ){
+    public Food(String uid, String title, String descr , String street, String postalCode, String validityDate, String pays, String image,String uidUser ){
         this.uid = uid;
         this.title = title;
         this.description = descr;
@@ -28,6 +29,7 @@ public class Food {
         this.postalCode = postalCode;
         this.pays = pays;
         this.validityDate = validityDate;
+        this.uidUser = uidUser;
 this.image = image;
         Date date = new Date();
         this.addTime=  new SimpleDateFormat("dd-MM-yyyy").format(date) + " " + new SimpleDateFormat("HH:mm").format(date);

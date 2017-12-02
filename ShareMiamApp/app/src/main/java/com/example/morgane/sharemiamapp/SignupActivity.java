@@ -1,13 +1,18 @@
 package com.example.morgane.sharemiamapp;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -19,13 +24,19 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 public class SignupActivity extends AppCompatActivity {
 
     private EditText inputEmail, inputPassword,inputPhone, inputPseudo;
-    private Button btnSignIn, btnSignUp, btnResetPassword;
+    private Button btnSignIn, btnSignUp, btnResetPassword, btnTakePicture,btnChoosePicture,btnSupprImage;
+    private ImageView imageViewProfil;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
     private DatabaseReference mDatabase;
+    private static final int RESULT_LOAD_IMG = 0;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
 
     @Override
@@ -44,6 +55,11 @@ public class SignupActivity extends AppCompatActivity {
         inputPseudo = (EditText) findViewById(R.id.pseudonyme);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         btnResetPassword = (Button) findViewById(R.id.btn_reset_password);
+
+        btnTakePicture = ( Button) findViewById(R.id.btnTakePictureSignup);
+        btnChoosePicture = (Button) findViewById(R.id.btnChoosePictureSignUp);
+        btnSupprImage = (Button)findViewById(R.id.btnDeleteImgProfil);
+        imageViewProfil = (ImageView) findViewById(R.id.imageProfile);
 
         btnResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +124,10 @@ public class SignupActivity extends AppCompatActivity {
                                 } else {
                                     FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
                                     DatabaseReference mDatabaseReference = mFirebaseDatabase.getReference("Users");
-                                    User s = new User(auth.getCurrentUser().getUid(), auth.getCurrentUser().getEmail(),inputPhone.getText().toString().trim(),inputPseudo.getText().toString().trim());
+
+                                    String imageProfil = saveImage();
+
+                                    User s = new User(auth.getCurrentUser().getUid(), auth.getCurrentUser().getEmail(),inputPhone.getText().toString().trim(),inputPseudo.getText().toString().trim(),imageProfil,3);
                                     String id= mDatabaseReference.push().getKey();
                                     mDatabaseReference.child(id).setValue(s);
                                     startActivity(new Intent(SignupActivity.this, MainActivity.class));
@@ -123,11 +142,96 @@ public class SignupActivity extends AppCompatActivity {
 
             }
         });
+
+
+
+        btnTakePicture.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+
+                    startActivityForResult(takePictureIntent,REQUEST_IMAGE_CAPTURE);
+                    takePictureIntent.getExtras();
+
+
+                }
+            }
+        });
+
+        btnChoosePicture.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
+            }
+        });
+
+        btnSupprImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageViewProfil.setVisibility(View.GONE);
+                btnChoosePicture.setEnabled(true);
+                btnTakePicture.setEnabled(true);
+                btnSupprImage.setVisibility(View.GONE);
+            }
+        });
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         progressBar.setVisibility(View.GONE);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            BitmapDrawable imageDraw = new BitmapDrawable(imageBitmap);
+            imageViewProfil.setBackground(imageDraw);
+
+        }else if(requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK){
+            Bitmap bm=null;
+            if (data != null) {
+                try {
+                    bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            BitmapDrawable imageDraw = new BitmapDrawable(bm);
+            imageViewProfil.setBackground(imageDraw);
+
+
+
+        }
+        imageViewProfil.setVisibility(View.VISIBLE);
+        btnSupprImage.setVisibility(View.VISIBLE);
+        btnTakePicture.setEnabled(false);
+        btnChoosePicture.setEnabled(false);
+
+
+
+    }
+
+
+    private String saveImage() {
+        imageViewProfil.setDrawingCacheEnabled(true);
+        imageViewProfil.buildDrawingCache();
+        Bitmap bitmap = imageViewProfil.getDrawingCache();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+        String imageB64 = Base64.encodeToString(data, Base64.DEFAULT);
+        return imageB64;
     }
 }

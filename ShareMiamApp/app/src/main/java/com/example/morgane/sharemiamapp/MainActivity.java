@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     public ArrayList<Food> listFood = new ArrayList<Food>();
+    public ArrayList<User> listUser = new ArrayList<User>();
 
 
 
@@ -68,8 +69,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         final DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        final Query query = reference.child("Food");
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        final Query queryFood = reference.child("Food");
+        final Query queryUser = reference.child("Users");
+        queryFood.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -86,7 +88,8 @@ public class MainActivity extends AppCompatActivity {
                                 singleFood.getValue(Food.class).postalCode,
                                 singleFood.getValue(Food.class).validityDate,
                                 singleFood.getValue(Food.class).pays,
-                                singleFood.getValue(Food.class).image);
+                                singleFood.getValue(Food.class).image,
+                                singleFood.getValue(Food.class).uidUser);
 
                         listFood.add(f);
                     }
@@ -102,6 +105,39 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
+        queryUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // dataSnapshot is the "issue" node with all children with id 0
+                    for (DataSnapshot user : dataSnapshot.getChildren()) {
+
+
+                        //singleFood.getValue(Food.class);
+
+                        User u = new User(user.getValue(User.class).uid,
+                                user.getValue(User.class).email,
+                                user.getValue(User.class).Phonenumber,
+                                user.getValue(User.class).Username,
+                                user.getValue(User.class).imageProfil,
+                                user.getValue(User.class).note
+                               );
+
+                       listUser.add(u);
+                    }
+                    Constant.USERS_ARRAY_LIST = listUser;
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
 
 

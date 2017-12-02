@@ -8,4 +8,5 @@ import java.util.ArrayList;
 
 public class Constant {
     public  static ArrayList<Food> FOOD_ARRAY_LIST = new ArrayList<Food>();
+    public  static ArrayList<User> USERS_ARRAY_LIST = new ArrayList<User>();
 }

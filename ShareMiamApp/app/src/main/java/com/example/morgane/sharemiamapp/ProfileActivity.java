@@ -185,7 +185,9 @@ public class ProfileActivity extends AppCompatActivity {
                                     User u = new User(auth.getCurrentUser().getUid(),
                                             user.getValue(User.class).email,
                                             user.getValue(User.class).Phonenumber,
-                                            pseudo.getText().toString());
+                                            pseudo.getText().toString(),
+                                            user.getValue(User.class).imageProfil,
+                                            user.getValue(User.class).note);
                                     reference.child("Users").child(uid).setValue(u);
                                     Toast.makeText(ProfileActivity.this, "Nickname updated !", Toast.LENGTH_LONG).show();
                                 }
@@ -243,7 +245,9 @@ public class ProfileActivity extends AppCompatActivity {
                                     User u = new User(auth.getCurrentUser().getUid(),
                                             user.getValue(User.class).email,
                                             phone.getText().toString(),
-                                            user.getValue(User.class).Username);
+                                            user.getValue(User.class).Username,
+                                            user.getValue(User.class).imageProfil,
+                                            user.getValue(User.class).note);
                                     reference.child("Users").child(uid).setValue(u);
                                     Toast.makeText(ProfileActivity.this, "Phone number updated !", Toast.LENGTH_LONG).show();
                                 }

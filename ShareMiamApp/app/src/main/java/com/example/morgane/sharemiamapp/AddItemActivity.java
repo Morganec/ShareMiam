@@ -146,7 +146,7 @@ public class AddItemActivity extends AppCompatActivity {
         DatabaseReference mDatabaseReference = mFirebaseDatabase.getReference("Food");
         String uid = auth.getCurrentUser().getUid();
         String id= mDatabaseReference.push().getKey();
-        Food f = new Food(uid,title,descr,street,postalCode,validityDate,country,image);
+        Food f = new Food(uid,title,descr,street,postalCode,validityDate,country,image,auth.getCurrentUser().getUid());
         mDatabaseReference.child(id).setValue(f);
     }
 
