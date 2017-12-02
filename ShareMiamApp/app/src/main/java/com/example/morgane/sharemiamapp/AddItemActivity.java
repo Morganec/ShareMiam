@@ -3,6 +3,8 @@ package com.example.morgane.sharemiamapp;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Path;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
@@ -168,21 +170,24 @@ public class AddItemActivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-            BitmapDrawable imageDraw = new BitmapDrawable(imageBitmap);
-           imageViewFood.setBackground(imageDraw);
+            imageBitmap = Bitmap.createScaledBitmap(imageBitmap,400,600,true);
+            //BitmapDrawable imageDraw = new BitmapDrawable(imageBitmap);
+           //imageViewFood.setBackground(imageDraw);
+           imageViewFood.setImageBitmap(imageBitmap);
 
         }else if(requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK){
             Bitmap bm=null;
             if (data != null) {
                 try {
                     bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
+                    bm = Bitmap.createScaledBitmap(bm,400,600,true);
+                    imageViewFood.setImageBitmap(bm);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-            BitmapDrawable imageDraw = new BitmapDrawable(bm);
-            imageViewFood.setBackground(imageDraw);
-
+           // BitmapDrawable imageDraw = new BitmapDrawable(bm);
+            //imageViewFood.setBackground(imageDraw);
 
 
         }
@@ -191,8 +196,11 @@ public class AddItemActivity extends AppCompatActivity {
         btnTakePicture.setEnabled(false);
         btnChoosePicture.setEnabled(false);
 
-
-
     }
+
+
+
+
+
 
 }
