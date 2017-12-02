@@ -170,7 +170,12 @@ public class AddItemActivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-            imageBitmap = Bitmap.createScaledBitmap(imageBitmap,400,600,true);
+            if(imageBitmap.getWidth() > imageBitmap.getHeight()){
+                imageBitmap = Bitmap.createScaledBitmap(imageBitmap,600,400,true);
+            }else{
+                imageBitmap = Bitmap.createScaledBitmap(imageBitmap,400,600,true);
+            }
+
             //BitmapDrawable imageDraw = new BitmapDrawable(imageBitmap);
            //imageViewFood.setBackground(imageDraw);
            imageViewFood.setImageBitmap(imageBitmap);
@@ -180,7 +185,11 @@ public class AddItemActivity extends AppCompatActivity {
             if (data != null) {
                 try {
                     bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
-                    bm = Bitmap.createScaledBitmap(bm,400,600,true);
+                    if(bm.getWidth() > bm.getHeight()){
+                        bm = Bitmap.createScaledBitmap(bm,600,400,true);
+                    }else{
+                        bm = Bitmap.createScaledBitmap(bm,400,600,true);
+                    }
                     imageViewFood.setImageBitmap(bm);
                 } catch (IOException e) {
                     e.printStackTrace();
