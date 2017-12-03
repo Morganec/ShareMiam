@@ -7,6 +7,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -56,7 +58,16 @@ public class FoodDetailActivity extends AppCompatActivity {
         BitmapDrawable imageDraw = new BitmapDrawable(monImage);
         imageView.setBackground(imageDraw);
 
+        final Button btnBuyFood = (Button) findViewById(R.id.btn_buyFood);
+        btnBuyFood.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FoodDetailActivity.this, ContactVendeur.class);
+                //intent.putExtra("foodList",listFood);
+                startActivity(intent);
+            }
+        });
 
 
     }

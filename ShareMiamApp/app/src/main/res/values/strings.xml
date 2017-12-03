@@ -59,6 +59,7 @@
     <string name="item_description">Description de l\'item</string>
     <string name="btn_buyFood">Acheter</string>
     <string name="choosePicture">Selectionner Photo</string>
+    <string name="see_message">Mes messages</string>
 
 
 </resources>

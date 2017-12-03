@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.morgane.sharemiamapp">
+    package="com.example.morgane.sharemiamapp"
+    android:minSdkVersion="8">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -60,7 +61,25 @@
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".SignupActivity" />
-        <activity android:name=".FoodDetailActivity"></activity>
+        <activity android:name=".FoodDetailActivity" />
+
+        <service
+            android:name=".FireBaseMessagerie"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".MessagerieService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".ContactVendeur" />
+        <activity android:name=".See_Message_Activity"></activity>
     </application>
 
 </manifest>

@@ -138,7 +138,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     Marker marker = mMap.addMarker(new MarkerOptions()
                             .position(foodAdress)
                             .title(food.title + ": \n Cliquer pour +infos" )
-                            .icon(BitmapDescriptorFactory.fromBitmap(((BitmapDrawable)imageDraw).getBitmap()))
+                            .icon(BitmapDescriptorFactory.fromBitmap(imageDraw.getBitmap()))
 
                     );
 

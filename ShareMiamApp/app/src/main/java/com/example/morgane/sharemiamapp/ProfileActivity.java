@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class ProfileActivity extends AppCompatActivity {
 
     private Button btnChangeEmail, btnChangePassword, btnSendResetEmail, btnRemoveUser,
-            changeEmail, changePassword, sendEmail, remove, signOut, btnChangeNickName, btnChangePhoneNumber, changePhone, changePseudo;
+            changeEmail, changePassword, sendEmail, remove, signOut, btnChangeNickName, btnChangePhoneNumber, changePhone, changePseudo, btnSeeMessage;
 
     private EditText oldEmail, newEmail, password, newPassword, phone, pseudo;
     private ProgressBar progressBar;
@@ -87,6 +87,7 @@ if(currentUser != null){
         changePassword = (Button) findViewById(R.id.changePass);
         sendEmail = (Button) findViewById(R.id.send);
         remove = (Button) findViewById(R.id.remove);
+        btnSeeMessage = (Button) findViewById(R.id.see_message);
         signOut = (Button) findViewById(R.id.sign_out);
 
         oldEmail = (EditText) findViewById(R.id.old_email);
@@ -399,6 +400,14 @@ if(currentUser != null){
                                 }
                             });
                 }
+            }
+        });
+
+        btnSeeMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity.this, See_Message_Activity.class);
+                startActivity(intent);
             }
         });
 
