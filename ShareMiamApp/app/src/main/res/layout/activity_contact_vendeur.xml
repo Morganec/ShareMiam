@@ -1,63 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.morgane.sharemiamapp.ContactVendeur"
-    android:background="@drawable/bois">
+    android:background="@drawable/bois"
+    tools:context="com.example.morgane.sharemiamapp.ContactVendeur">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
         android:orientation="vertical"
-        android:padding="10dp"
-        android:fillViewport="false"
-        android:background="@drawable/bois"
         >
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="@dimen/activity_horizontal_margin">
-            >
 
 
-            <EditText
-                android:id="@+id/edtSujetMessage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:hint="Achat de plat"
-                />
+    <LinearLayout
+        android:id="@+id/line1"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/edtTextMessage"
-                android:layout_height="match_parent"
-                android:inputType="textMultiLine"
-                android:hint="Bonjour j'aimerais recupérer le plat à tel h ... "
-                android:lines="5"
-                android:layout_width="wrap_content">
-            </EditText>
+        <ListView
+            android:id="@+id/list_of_messages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:divider="@android:color/transparent" />
 
 
+    </LinearLayout>
 
 
-            <Button
-                android:id="@+id/btnSend"
-                android:layout_height="wrap_content"
-                android:text="Send Message"
-                android:background="@color/colorAccent"
-                android:layout_width="match_parent">
-            </Button>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:background="@color/colorAccent"
+        android:orientation="horizontal">
 
 
-        </LinearLayout>
+        <EditText
+            android:id="@+id/input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Input" />
 
+        <Button
+            android:id="@+id/btnSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="send" />
+    </LinearLayout>
+</LinearLayout>
+</ScrollView>
 
-
-    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

@@ -63,21 +63,6 @@
         <activity android:name=".SignupActivity" />
         <activity android:name=".FoodDetailActivity" />
 
-        <service
-            android:name=".FireBaseMessagerie"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
-        <service
-            android:name=".MessagerieService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
         <activity android:name=".ContactVendeur" />
         <activity android:name=".See_Message_Activity"></activity>
     </application>

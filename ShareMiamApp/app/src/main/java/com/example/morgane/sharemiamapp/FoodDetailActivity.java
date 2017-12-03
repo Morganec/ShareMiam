@@ -64,7 +64,6 @@ public class FoodDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FoodDetailActivity.this, ContactVendeur.class);
-                //intent.putExtra("foodList",listFood);
                 startActivity(intent);
             }
         });
