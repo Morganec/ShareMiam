@@ -10,12 +10,14 @@ public class ChatMessage {
 
 
         private String messageText;
-        private String messageUser;
+        private String sender;
+        private String receiver;
         private long messageTime;
 
-        public ChatMessage(String messageText, String messageUser) {
+        public ChatMessage(String messageText, String sender, String receiver) {
             this.messageText = messageText;
-            this.messageUser = messageUser;
+            this.sender = sender;
+            this.receiver = receiver;
 
             // Initialize to current time
             messageTime = new Date().getTime();
@@ -33,14 +35,20 @@ public class ChatMessage {
             this.messageText = messageText;
         }
 
-        public String getMessageUser() {
-            return messageUser;
+        public String getSender() {
+            return sender;
+        }
+        public String getReceiver(){
+            return receiver;
         }
 
-        public void setMessageUser(String messageUser) {
-            this.messageUser = messageUser;
+        public void setSender(String sender) {
+            this.sender = sender;
         }
 
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
         public long getMessageTime() {
             return messageTime;
         }

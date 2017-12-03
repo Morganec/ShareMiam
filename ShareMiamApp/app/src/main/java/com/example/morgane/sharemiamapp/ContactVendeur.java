@@ -16,12 +16,19 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class ContactVendeur extends AppCompatActivity {
-
+public String uidVendeur, uidFood;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_vendeur);
        final Button btnSend = (Button) findViewById(R.id.btnSend);
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+
+        uidVendeur = ((String)extras.get("uidVendeur"));
+        uidFood = ((String)extras.get("uidFood"));
+
         btnSend.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -31,12 +38,14 @@ public class ContactVendeur extends AppCompatActivity {
                 // Read the input field and push a new instance
                 // of com.example.morgane.sharemiamapp.ChatMessage to the Firebase database
                 FirebaseDatabase.getInstance()
-                        .getReference()
+                        .getReference("Messages")
                         .push()
                         .setValue(new ChatMessage(input.getText().toString(),
                                 FirebaseAuth.getInstance()
-                                        .getCurrentUser()
-                                        .getDisplayName())
+                                        .getCurrentUser().getUid(),
+                                uidVendeur
+
+                                )
                         );
 
                 // Clear the input
@@ -58,7 +67,7 @@ public class ContactVendeur extends AppCompatActivity {
 
                 // Set their text
                 messageText.setText(model.getMessageText());
-                messageUser.setText(model.getMessageUser());
+                messageUser.setText(model.getSender());
 
                 // Format the date before showing it
                 messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",
