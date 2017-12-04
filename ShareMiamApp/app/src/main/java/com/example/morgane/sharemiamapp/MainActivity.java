@@ -22,7 +22,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     public ArrayList<Food> listFood = new ArrayList<Food>();
-    public ArrayList<User> listUser = new ArrayList<User>();
 
 
 
@@ -126,9 +125,10 @@ public class MainActivity extends AppCompatActivity {
                                 user.getValue(User.class).note
                                );
 
-                       listUser.add(u);
+
+                       Constant.USERS_ARRAY_LIST.put(u.uid,u);
                     }
-                    Constant.USERS_ARRAY_LIST = listUser;
+
 
                 }
             }

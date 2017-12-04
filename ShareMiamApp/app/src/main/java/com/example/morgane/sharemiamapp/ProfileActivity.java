@@ -48,11 +48,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
-for(User u : Constant.USERS_ARRAY_LIST){
-     if(u.uid.equals(auth.getCurrentUser().getUid())){
-         currentUser = u;
-     }
- }
+
+
+ currentUser = Constant.USERS_ARRAY_LIST.get(auth.getCurrentUser().getUid());
 
 if(currentUser != null){
      ArrayList<User> listInterm = new ArrayList<User>();
@@ -204,8 +202,8 @@ if(currentUser != null){
                                             user.getValue(User.class).imageProfil,
                                             user.getValue(User.class).note);
                                     reference.child("Users").child(uid).setValue(u);
-                                    Constant.USERS_ARRAY_LIST.remove(currentUser);
-                                    Constant.USERS_ARRAY_LIST.add(u);
+                                    Constant.USERS_ARRAY_LIST.remove(currentUser.uid);
+                                    Constant.USERS_ARRAY_LIST.put(u.uid,u);
                                     Toast.makeText(ProfileActivity.this, "Nickname updated !", Toast.LENGTH_LONG).show();
                                 }
                             }
@@ -266,8 +264,8 @@ if(currentUser != null){
                                             user.getValue(User.class).imageProfil,
                                             user.getValue(User.class).note);
                                     reference.child("Users").child(uid).setValue(u);
-                                    Constant.USERS_ARRAY_LIST.remove(currentUser);
-                                    Constant.USERS_ARRAY_LIST.add(u);
+                                    Constant.USERS_ARRAY_LIST.remove(currentUser.uid);
+                                    Constant.USERS_ARRAY_LIST.put(u.uid,u);
                                     Toast.makeText(ProfileActivity.this, "Phone number updated !", Toast.LENGTH_LONG).show();
                                 }
                             }
@@ -406,7 +404,7 @@ if(currentUser != null){
         btnSeeMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ProfileActivity.this, See_Message_Activity.class);
+                Intent intent = new Intent(ProfileActivity.this, MesMessagesActivity.class);
                 startActivity(intent);
             }
         });

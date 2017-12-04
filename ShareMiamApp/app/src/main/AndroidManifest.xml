@@ -62,9 +62,8 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".FoodDetailActivity" />
-
         <activity android:name=".ContactVendeur" />
-        <activity android:name=".See_Message_Activity"></activity>
+        <activity android:name=".MesMessagesActivity"></activity>
     </application>
 
 </manifest>

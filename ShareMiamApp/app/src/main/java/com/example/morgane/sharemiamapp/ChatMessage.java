@@ -14,13 +14,11 @@ public class ChatMessage {
         private String receiver;
         private long messageTime;
 
-        public ChatMessage(String messageText, String sender, String receiver) {
+        public ChatMessage(String messageText, String sender, String receiver, long messageTime) {
             this.messageText = messageText;
             this.sender = sender;
             this.receiver = receiver;
-
-            // Initialize to current time
-            messageTime = new Date().getTime();
+            this.messageTime = messageTime;
         }
 
         public ChatMessage(){

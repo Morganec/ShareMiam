@@ -15,6 +15,8 @@ import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Date;
+
 public class ContactVendeur extends AppCompatActivity {
 public String uidVendeur, uidFood;
     @Override
@@ -43,7 +45,8 @@ public String uidVendeur, uidFood;
                         .setValue(new ChatMessage(input.getText().toString(),
                                 FirebaseAuth.getInstance()
                                         .getCurrentUser().getUid(),
-                                uidVendeur
+                                uidVendeur,
+                                new Date().getTime()
 
                                 )
                         );
@@ -57,7 +60,7 @@ public String uidVendeur, uidFood;
       ListView listOfMessages = (ListView)findViewById(R.id.list_of_messages);
 
          FirebaseListAdapter<ChatMessage> adapter = new FirebaseListAdapter<ChatMessage>(this, ChatMessage.class,
-                R.layout.message, FirebaseDatabase.getInstance().getReference()) {
+                R.layout.message, FirebaseDatabase.getInstance().getReference("Messages")) {
             @Override
             protected void populateView(View v, ChatMessage model, int position) {
                 // Get references to the views of message.xml
