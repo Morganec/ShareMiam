@@ -60,6 +60,8 @@
     <string name="btn_buyFood">Acheter</string>
     <string name="choosePicture">Selectionner Photo</string>
     <string name="see_message">Mes messages</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="default_notification_channel_name" translatable="true">News</string>
 
 
 </resources>

@@ -40,6 +40,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -114,8 +115,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    public void placeAllMarker(ArrayList<Food> listFood){
-        for (final Food food :listFood) {
+    public void placeAllMarker(Map<String,Food> listFood){
+        for (final Food food : listFood.values()) {
 
 
             Bitmap monImage = getBitMapImage(food.image);

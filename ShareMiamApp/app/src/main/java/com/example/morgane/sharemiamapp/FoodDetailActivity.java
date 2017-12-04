@@ -37,11 +37,8 @@ public class FoodDetailActivity extends AppCompatActivity {
 
         String uid = ((String)extras.get("uid"));
 
-     for(Food f : Constant.FOOD_ARRAY_LIST){
-         if(f.uid.equals(uid)){
-             selectedFood = f;
-         }
-     }
+
+     selectedFood = Constant.FOOD_ARRAY_LIST.get(uid);
 
 
         TextView twTitle = (TextView) findViewById(R.id.txtItemTitle);

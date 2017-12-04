@@ -9,6 +9,6 @@ import java.util.Map;
  */
 
 public class Constant {
-    public  static ArrayList<Food> FOOD_ARRAY_LIST = new ArrayList<Food>();
+    public  static HashMap<String,Food> FOOD_ARRAY_LIST = new HashMap<String, Food>();
     public  static HashMap<String,User> USERS_ARRAY_LIST = new HashMap<String, User>();
 }

@@ -94,7 +94,7 @@ lvSendMess = (ListView) findViewById(R.id.lvSendMess);
 
                 // Set their text
                 messageText.setText(model.getMessageText());
-                messageUser.setText(Constant.USERS_ARRAY_LIST.get(model.getSender()).Username );
+                messageUser.setText(Constant.USERS_ARRAY_LIST.get(model.getReceiver()).Username );
 
                 // Format the date before showing it
                 messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",

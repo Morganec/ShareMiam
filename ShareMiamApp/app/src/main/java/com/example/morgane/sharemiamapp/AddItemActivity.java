@@ -148,7 +148,7 @@ public class AddItemActivity extends AppCompatActivity {
         String id= mDatabaseReference.push().getKey();
         Food f = new Food(id,title,descr,street,postalCode,validityDate,country,image,auth.getCurrentUser().getUid());
         mDatabaseReference.child(id).setValue(f);
-        Constant.FOOD_ARRAY_LIST.add(f);
+        Constant.FOOD_ARRAY_LIST.put(f.uid,f);
     }
 
     private String saveImage() {

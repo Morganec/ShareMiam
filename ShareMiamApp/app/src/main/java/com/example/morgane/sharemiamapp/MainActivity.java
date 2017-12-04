@@ -1,6 +1,8 @@
 package com.example.morgane.sharemiamapp;
 
+
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,18 +19,20 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    public ArrayList<Food> listFood = new ArrayList<Food>();
+   // public ArrayList<Food> listFood = new ArrayList<Food>();
 
-
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
 
         final Button btnSeeMap = (Button) findViewById(R.id.btnSeeMap);
@@ -90,11 +94,12 @@ public class MainActivity extends AppCompatActivity {
                                 singleFood.getValue(Food.class).pays,
                                 singleFood.getValue(Food.class).image,
                                 singleFood.getValue(Food.class).uidUser);
+                        Constant.FOOD_ARRAY_LIST.put(f.uid,f);
 
-                        listFood.add(f);
+
                     }
-                    Constant.FOOD_ARRAY_LIST = listFood;
-                    remplirListView(listFood);
+
+                    remplirListView(Constant.FOOD_ARRAY_LIST);
 
 
                 }
@@ -144,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void remplirListView(ArrayList<Food> listFood) {
+    private void remplirListView(Map< String,Food> listFood) {
         ListView lvPlat = (ListView) findViewById(R.id.listViewFood);
         lvPlat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -155,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        FoodAdapter adapter = new FoodAdapter(MainActivity.this, listFood);
+        FoodAdapter adapter = new FoodAdapter(MainActivity.this, new ArrayList<Food>(listFood.values()));
         lvPlat.setAdapter(adapter);
     }
 }
