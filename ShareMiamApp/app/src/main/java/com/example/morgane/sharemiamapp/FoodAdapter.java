@@ -49,7 +49,7 @@ class FoodAdapter  extends ArrayAdapter<Food>{
        this.food = getItem(position);
 
         //il ne reste plus qu'à remplir notre vue
-        viewHolder.title.setText(food.title);
+        viewHolder.title.setText(food.title + "(" + food.prix + " $)");
         viewHolder.text.setText(food.description);
         byte[] decodedBytes = Base64.decode(food.image, 0);
         Bitmap monImage = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);

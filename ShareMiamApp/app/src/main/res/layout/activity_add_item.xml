@@ -55,6 +55,23 @@
                 android:inputType="date" />
 
 
+            <TextView
+                android:id="@+id/txtPrix"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Prix : "
+                android:textSize="10pt"
+                />
+
+            <EditText
+                android:id="@+id/edtPrix"
+                android:digits="0123456789."
+                android:inputType="numberDecimal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+
 
             <EditText
                 android:id="@+id/edtDescriptionItem"

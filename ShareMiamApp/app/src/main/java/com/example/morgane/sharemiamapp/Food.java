@@ -20,8 +20,9 @@ public class Food {
     public String addTime;
     public String pays;
     public String image;
+    public int prix;
 
-    public Food(String uid, String title, String descr , String street, String postalCode, String validityDate, String pays, String image,String uidUser ){
+    public Food(String uid, String title, String descr , String street, String postalCode, String validityDate, String pays, String image,String uidUser, int prix){
         this.uid = uid;
         this.title = title;
         this.description = descr;
@@ -32,6 +33,7 @@ public class Food {
         this.uidUser = uidUser;
 this.image = image;
         Date date = new Date();
+        this.prix = prix;
         this.addTime=  new SimpleDateFormat("dd-MM-yyyy").format(date) + " " + new SimpleDateFormat("HH:mm").format(date);
     }
 

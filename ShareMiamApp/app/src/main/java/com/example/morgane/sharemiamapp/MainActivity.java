@@ -94,7 +94,8 @@ public class MainActivity extends AppCompatActivity {
                                 singleFood.getValue(Food.class).validityDate,
                                 singleFood.getValue(Food.class).pays,
                                 singleFood.getValue(Food.class).image,
-                                singleFood.getValue(Food.class).uidUser);
+                                singleFood.getValue(Food.class).uidUser,
+                                singleFood.getValue(Food.class).prix);
                         Constant.FOOD_ARRAY_LIST.put(f.uid,f);
 
 
