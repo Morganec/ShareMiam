@@ -13,12 +13,16 @@ import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ContactVendeur extends AppCompatActivity {
 public String uidVendeur, uidFood;
+public ChatMessage chatMessage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +43,13 @@ public String uidVendeur, uidFood;
 
                 // Read the input field and push a new instance
                 // of com.example.morgane.sharemiamapp.ChatMessage to the Firebase database
+                chatMessage = new ChatMessage(input.getText().toString(),
+                        FirebaseAuth.getInstance()
+                                .getCurrentUser().getUid(),
+                        uidVendeur,
+                        new Date().getTime()
+
+                );
                 FirebaseDatabase.getInstance()
                         .getReference("Messages")
                         .push()
@@ -61,20 +72,31 @@ public String uidVendeur, uidFood;
 
          FirebaseListAdapter<ChatMessage> adapter = new FirebaseListAdapter<ChatMessage>(this, ChatMessage.class,
                 R.layout.message, FirebaseDatabase.getInstance().getReference("Messages")) {
+
+
             @Override
             protected void populateView(View v, ChatMessage model, int position) {
-                // Get references to the views of message.xml
-                TextView messageText = (TextView)v.findViewById(R.id.message_text);
-                TextView messageUser = (TextView)v.findViewById(R.id.message_user);
-                TextView messageTime = (TextView)v.findViewById(R.id.message_time);
+                if (
+                        (model.getSender() == FirebaseAuth.getInstance().getCurrentUser().getUid()
+                                && model.getReceiver() == uidVendeur) ||
+                                (model.getReceiver() == FirebaseAuth.getInstance().getCurrentUser().getUid()
+                                        && model.getSender() == uidVendeur)
+                        ) {
 
-                // Set their text
-                messageText.setText(model.getMessageText());
-                messageUser.setText(model.getSender());
 
-                // Format the date before showing it
-                messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",
-                        model.getMessageTime()));
+                    // Get references to the views of message.xml
+                    TextView messageText = (TextView) v.findViewById(R.id.message_text);
+                    TextView messageUser = (TextView) v.findViewById(R.id.message_user);
+                    TextView messageTime = (TextView) v.findViewById(R.id.message_time);
+
+                    // Set their text
+                    messageText.setText(model.getMessageText());
+                    messageUser.setText(Constant.USERS_ARRAY_LIST.get(model.getSender()).Username );
+
+                    // Format the date before showing it
+                    messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",
+                            model.getMessageTime()));
+                }
             }
         };
 
@@ -84,16 +106,7 @@ public String uidVendeur, uidFood;
     }
 
 
-   /* public static void sendNotificationToUser(String user, final String message) {
-        final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        final DatabaseReference notifications = ref.child("notificationRequests");
 
-        Map notification = new HashMap<>();
-        notification.put("username", user);
-        notification.put("message", message);
-
-        notifications.push().setValue(notification);
-    }*/
 
 
 }

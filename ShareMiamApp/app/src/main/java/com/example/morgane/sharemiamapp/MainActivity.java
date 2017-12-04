@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         queryFood.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Constant.FOOD_ARRAY_LIST.clear();
                 if (dataSnapshot.exists()) {
                     // dataSnapshot is the "issue" node with all children with id 0
                     for (DataSnapshot singleFood : dataSnapshot.getChildren()) {
@@ -115,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
         queryUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Constant.USERS_ARRAY_LIST.clear();
                 if (dataSnapshot.exists()) {
                     // dataSnapshot is the "issue" node with all children with id 0
                     for (DataSnapshot user : dataSnapshot.getChildren()) {
