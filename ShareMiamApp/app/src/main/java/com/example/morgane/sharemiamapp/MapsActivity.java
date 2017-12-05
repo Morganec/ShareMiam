@@ -234,7 +234,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 public Bitmap getBitMapImage(String image){
-    byte[] decodedBytes = Base64.decode(image, 0);
+    byte[] decodedBytes = Base64.decode(image, Base64.DEFAULT);
     Bitmap monImage = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
 return monImage;
 }

@@ -65,6 +65,8 @@ public ChatMessage chatMessage;
                 // Clear the input
                 input.setText("");
 
+
+
             }
         });
 
