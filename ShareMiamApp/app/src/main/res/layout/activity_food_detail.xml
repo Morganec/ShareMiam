@@ -18,71 +18,43 @@
             android:layout_height="fill_parent"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="@dimen/activity_horizontal_margin">
-
-            <TextView
-                android:id="@+id/txtProfilVendeur"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:gravity="center_horizontal"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:text="Profil du vendeur : "
-                android:textSize="20dp"
-                android:textStyle="bold"/>
+            android:padding="0px">
 
             <ListView
                 android:id="@+id/viewProfilFoodDetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-
-            <TextView
-                android:id="@+id/txtIndiqPlat"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:gravity="center_horizontal"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:text="Plat : "
-                android:textSize="20dp"
-                android:textStyle="bold"/>
-
+                android:layout_height="match_parent"
+                android:background="@color/colorAccent"
+                android:padding="0px"
+                />
 
             <TextView
             android:id="@+id/txtItemTitle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginBottom="10dp"
             android:gravity="center_horizontal"
-            android:padding="@dimen/activity_horizontal_margin"
+                android:padding="0px"
             android:text="@string/item_title"
             android:textSize="20dp"
             android:textStyle="bold"/>
 
-
-
-
             <ImageView
                 android:id="@+id/imageDetailledFood"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_weight="1"
-                android:padding="60dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:padding="0dp"
                 />
-
         <TextView
             android:id="@+id/txtItemDescription"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginBottom="10dp"
             android:gravity="center_horizontal"
-            android:padding="@dimen/activity_horizontal_margin"
+            android:padding="0px"
             android:text="@string/item_description"
-            android:textSize="14dp" />
+            android:textSize="14dp"
+          />
 
         <TextView
             android:id="@+id/txtValidityDate"
@@ -90,21 +62,20 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:gravity="center_horizontal"
-            android:padding="@dimen/activity_horizontal_margin"
+            android:padding="0px"
             android:text="@string/validityDate"
             android:textSize="14dp"
             android:textColor="@color/colorAccent"/>
 
-
-
         <Button
             android:id="@+id/btn_buyFood"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
             android:background="@color/colorAccent"
             android:text="@string/btn_buyFood"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:padding="0px"/>
 
     </LinearLayout>
 

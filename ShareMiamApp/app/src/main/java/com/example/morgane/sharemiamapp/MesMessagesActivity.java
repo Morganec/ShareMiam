@@ -1,9 +1,11 @@
 package com.example.morgane.sharemiamapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -83,6 +85,8 @@ lvSendMess = (ListView) findViewById(R.id.lvSendMess);
             }
         });
 */
+
+
         FirebaseListAdapter<ChatMessage> adapterSend = new FirebaseListAdapter<ChatMessage>(this, ChatMessage.class,
                 R.layout.message, FirebaseDatabase.getInstance().getReference().child("Messages").orderByChild("sender").equalTo(auth.getCurrentUser().getUid())){
             @Override
@@ -126,6 +130,28 @@ lvSendMess = (ListView) findViewById(R.id.lvSendMess);
         };
 
         lvReceivMess.setAdapter(adapterReceiv);
+
+        lvReceivMess.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ChatMessage message =(ChatMessage) parent.getItemAtPosition(position);
+                Intent intent = new Intent(MesMessagesActivity.this, ContactVendeur.class);
+                intent.putExtra("uidVendeur", message.getSender());
+                intent.putExtra("uidFood",message.getReceiver());
+                startActivity(intent);
+            }
+        });
+
+        lvSendMess.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ChatMessage message =(ChatMessage) parent.getItemAtPosition(position);
+                Intent intent = new Intent(MesMessagesActivity.this, ContactVendeur.class);
+                intent.putExtra("uidVendeur", message.getReceiver());
+                intent.putExtra("uidFood",message.getSender());
+                startActivity(intent);
+            }
+        });
 
     }
 }

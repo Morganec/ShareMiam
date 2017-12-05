@@ -180,6 +180,7 @@ public class AddItemActivity extends AppCompatActivity {
 
             //BitmapDrawable imageDraw = new BitmapDrawable(imageBitmap);
            //imageViewFood.setBackground(imageDraw);
+            //imageViewFood.setImageResource();
            imageViewFood.setImageBitmap(imageBitmap);
 
         }else if(requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK){

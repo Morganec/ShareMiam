@@ -54,13 +54,20 @@ public class FoodDetailActivity extends AppCompatActivity {
         ImageView imageView = (ImageView) findViewById(R.id.imageDetailledFood) ;
 
 
-        twTitle.setText(selectedFood.title);
+        twTitle.setText(selectedFood.title + "(" + selectedFood.prix + "$ )");
         twDescription.setText(selectedFood.description);
-        twDateValid.setText(selectedFood.validityDate);
+        twDateValid.setText("Date de validité : "  + selectedFood.validityDate);
 
-        Bitmap monImage = getBitMapImage(selectedFood.image);
-        BitmapDrawable imageDraw = new BitmapDrawable(monImage);
-        imageView.setBackground(imageDraw);
+        Bitmap imageBitmap = getBitMapImage(selectedFood.image);
+        if(imageBitmap.getWidth() > imageBitmap.getHeight()){
+            imageBitmap = Bitmap.createScaledBitmap(imageBitmap,600,400,true);
+        }else{
+            imageBitmap = Bitmap.createScaledBitmap(imageBitmap,400,600,true);
+        }
+        imageView.setImageBitmap(imageBitmap);
+
+
+
 
         final Button btnBuyFood = (Button) findViewById(R.id.btn_buyFood);
         btnBuyFood.setOnClickListener(new View.OnClickListener() {

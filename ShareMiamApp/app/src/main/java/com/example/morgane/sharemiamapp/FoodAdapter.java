@@ -53,8 +53,9 @@ class FoodAdapter  extends ArrayAdapter<Food>{
         viewHolder.text.setText(food.description);
         byte[] decodedBytes = Base64.decode(food.image, 0);
         Bitmap monImage = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
-        BitmapDrawable imageDraw = new BitmapDrawable(monImage);
-        viewHolder.image.setBackground(imageDraw);
+        //BitmapDrawable imageDraw = new BitmapDrawable(monImage);
+        //viewHolder.image.setBackground(imageDraw);
+        viewHolder.image.setImageBitmap(monImage);
 
 
         return convertView;

@@ -1,7 +1,10 @@
 package com.example.morgane.sharemiamapp;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 import com.google.firebase.database.DataSnapshot;
@@ -20,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Random;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -27,13 +32,30 @@ public class MainActivity extends AppCompatActivity {
    // public ArrayList<Food> listFood = new ArrayList<Food>();
 
     private static final String TAG = "MainActivity";
+    private SensorManager mSensorManager;
+    private ShakeEventListener mSensorListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mSensorListener = new ShakeEventListener();
 
+        mSensorListener.setOnShakeListener(new ShakeEventListener.OnShakeListener() {
+
+            public void onShake() {
+                Random generator = new Random();
+                Object[] values = Constant.FOOD_ARRAY_LIST.values().toArray();
+                Food randomValueFood = (Food) values[generator.nextInt(values.length)];
+                Intent intent = new Intent(MainActivity.this, FoodDetailActivity.class);
+                intent.putExtra("uid",randomValueFood.uid);
+                startActivity(intent);
+
+                //Toast.makeText(MainActivity.this, "Shake!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         final Button btnSeeMap = (Button) findViewById(R.id.btnSeeMap);
         btnSeeMap.setOnClickListener(new View.OnClickListener() {
@@ -165,5 +187,20 @@ public class MainActivity extends AppCompatActivity {
         });
         FoodAdapter adapter = new FoodAdapter(MainActivity.this, new ArrayList<Food>(listFood.values()));
         lvPlat.setAdapter(adapter);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(mSensorListener,
+                mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                SensorManager.SENSOR_DELAY_UI);
+    }
+
+    @Override
+    protected void onPause() {
+        mSensorManager.unregisterListener(mSensorListener);
+        super.onPause();
     }
 }
