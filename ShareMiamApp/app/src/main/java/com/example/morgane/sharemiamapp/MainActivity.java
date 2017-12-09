@@ -22,7 +22,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 import java.util.Random;
 
@@ -120,7 +123,19 @@ public class MainActivity extends AppCompatActivity {
                                 singleFood.getValue(Food.class).image,
                                 singleFood.getValue(Food.class).uidUser,
                                 singleFood.getValue(Food.class).prix);
-                        Constant.FOOD_ARRAY_LIST.put(f.uid,f);
+
+                        Date d = new Date();
+                        try {
+                             d =  new SimpleDateFormat("dd-MM-yyyy").parse(f.validityDate);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        Date aujourdhui = new Date();
+                        int compareDate = d.compareTo(aujourdhui);
+                        if(compareDate  >= 0 ){
+                            Constant.FOOD_ARRAY_LIST.put(f.uid,f);
+                        }
+
 
 
                     }

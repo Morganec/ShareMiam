@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -150,7 +151,18 @@ public class AddItemActivity extends AppCompatActivity {
         String id= mDatabaseReference.push().getKey();
         Food f = new Food(id,title,descr,street,postalCode,validityDate,country,image,auth.getCurrentUser().getUid(),prix );
         mDatabaseReference.child(id).setValue(f);
-        Constant.FOOD_ARRAY_LIST.put(f.uid,f);
+
+        Date d = new Date();
+        try {
+            d =  new SimpleDateFormat("dd-MM-yyyy").parse(f.validityDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date aujourdhui = new Date();
+        int compareDate = d.compareTo(aujourdhui);
+        if(compareDate  >= 0 ){
+            Constant.FOOD_ARRAY_LIST.put(f.uid,f);
+        }
     }
 
     private String saveImage() {
@@ -158,7 +170,13 @@ public class AddItemActivity extends AppCompatActivity {
         imageViewFood.buildDrawingCache();
         Bitmap bitmap = imageViewFood.getDrawingCache();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        if(bitmap.getWidth() > bitmap.getHeight()){
+            bitmap = Bitmap.createScaledBitmap(bitmap,600,400,true);
+        }else{
+            bitmap = Bitmap.createScaledBitmap(bitmap,400,600,true);
+        }
+
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
         byte[] data = baos.toByteArray();
         String imageB64 = Base64.encodeToString(data, Base64.DEFAULT);
         return imageB64;
